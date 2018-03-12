@@ -12,9 +12,9 @@ import {
     Toast
 } from "react-weui";
 import Page from "../../components/Page";
-import Order from "../../components/Order";
+import OrderDetails from "../../components/OrderDetails";
 
-class Rent extends React.Component {
+class Order extends React.Component {
 
     static propTypes = {
         history: PropTypes.object,
@@ -62,7 +62,7 @@ class Rent extends React.Component {
         if (updateOrder) {
             updateOrder({ ...this.baseInfo });
         }
-        history.push(`/vehicles/${item.id}`);
+        history.push(`/rent/vehicles/${item.id}`);
     }
 
     handleCreateVehicle = () => {
@@ -70,7 +70,7 @@ class Rent extends React.Component {
         if (updateOrder) {
             updateOrder({ ...this.baseInfo });
         }
-        history.push("/vehicles");
+        history.push("/rent/vehicles");
     }
 
     handleChange = (info) => {
@@ -89,7 +89,7 @@ class Rent extends React.Component {
 
     forward = (order) => {
         const { history } = this.props;
-        history.replace(`/done`);
+        history.replace(`/rent/done`);
     }
 
     deferCloseToptips = () => {
@@ -136,7 +136,7 @@ class Rent extends React.Component {
         const { order } = this.props;
         return (
             <Page title="预约租车">
-                <Order data={order} error={this.state.error}
+                <OrderDetails data={order} error={this.state.error}
                     onChange={this.handleChange}
                     onEditVehicle={this.handleEditVehicle}
                     onCreateVehicle={this.handleCreateVehicle}
@@ -156,4 +156,4 @@ class Rent extends React.Component {
     }
 }
 
-export default connect(rentSelector, { submitOrder, updateOrder })(Rent);
+export default connect(rentSelector, { submitOrder, updateOrder })(Order);

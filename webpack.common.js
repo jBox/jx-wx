@@ -13,10 +13,7 @@ const config = require("./package").config;
 
 module.exports = {
     entry: {
-        app: "./src/index.js",
-        rent: "./src/rent.js",
-        orders: "./src/orders.js",
-        profile: "./src/profile.js"
+        app: "./src/index.js"
     },
     module: {
         rules: [

@@ -47,6 +47,7 @@ const PreviewDetails = ({ order }) => {
             <PreviewItem label="租车天数" value={order.duration} />
             {order.vehicles.map((v, index) => (<VehicleDetail key={index} vehicle={v} />))}
             {order.notes && (<PreviewItem label="备注" value={order.notes} />)}
+            <PreviewItem label="下单时间" value={order.createTime} />
         </PreviewBody>
     );
 };

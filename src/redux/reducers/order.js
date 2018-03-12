@@ -144,6 +144,15 @@ const notes = (state = "", action) => {
     }
 };
 
+const createTime = (state = "", action) => {
+    switch (action.type) {
+        case SUBMIT_ORDER_SUCCESS:
+            return action.order.createTime;
+        default:
+            return state;
+    }
+};
+
 const vehicles = (state = [], action) => {
     switch (action.type) {
         case UPDATE_VEHICLES:
@@ -179,6 +188,7 @@ export default combineReducers({
     destination,
     duration,
     notes,
+    createTime,
     traces,
     vehicles
 });

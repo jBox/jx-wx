@@ -1,8 +1,32 @@
 import { combineReducers } from "redux";
-import auth from "./auth";
-import settings from "./settings";
+
+const list = (state = [{
+    id: "20180303097834",
+    name: "小红",
+    mobile: "18988996789",
+    departureTime: "20180303097834",
+    departurePlace: "20180303097834",
+    destination: "20180303097834",
+    status: "submit",
+    createTime: new Date().toISOString(),
+    vehicles: [{ model: "mvp", count: 2, withDriver: true }],
+    traces: [{ operator: "System", state: "Good" }]
+}, {
+    id: "20180303097835",
+    name: "小红",
+    mobile: "18988996789",
+    departureTime: "20180303097834",
+    departurePlace: "20180303097834",
+    destination: "20180303097834",
+    status: "submit",
+    notes: "sfasf afasf",
+    createTime: new Date().toISOString(),
+    vehicles: [{ model: "mvp", count: 2, withDriver: true }],
+    traces: [{ operator: "System", state: "Good" }]
+}], action) => {
+    return state;
+}
 
 export default combineReducers({
-    auth,
-    settings
+    list
 });

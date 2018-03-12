@@ -1,23 +1,20 @@
 import React from "react";
-import {
-    Switch,
-    Route,
-    BrowserRouter as Router
-} from "react-router-dom";
-import Rent from "./Rent";
+import { Switch } from "react-router-dom";
+import Route from "../../Route";
+import OrderView from "./Order";
 import CreateVehicle from "./CreateVehicle";
 import ModifyVehicle from "./ModifyVehicle";
 import Done from "./Done";
 import Tracking from "./Tracking";
 
-export default () => (
-    <Router basename="/rent">
-        <Switch>
-            <Route exact path="/" component={Rent} />
-            <Route exact path="/vehicles" component={CreateVehicle} />
-            <Route path="/vehicles/:id" component={ModifyVehicle} />
-            <Route path="/done" component={Done} />
-            <Route path="/tracking" component={Tracking} />
-        </Switch>
-    </Router>
+export const Order = OrderView;
+export const CreateOrderVehicle = CreateVehicle;
+export const ModifyOrderVehicle = ModifyVehicle;
+export const OrderDone = Done;
+export const OrderTracking = Tracking;
+
+export default ({ routes }) => (
+    <Switch>
+        {routes.map((route, i) => <Route key={i} {...route} />)}
+    </Switch>
 );

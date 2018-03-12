@@ -9,11 +9,13 @@ router.get("/:operation?/:any*?", (req, res, next) => {
     case "rent":
     case "orders":
     case "profile":
-      return res.render(operation, {
+      return res.render("index", {
         title: req.app.get("company"), initialState: JSON.stringify({
-          order: {
-            name: "王小丫",
-            mobile: "18688995566"
+          rent: {
+            order: {
+              name: "王小丫",
+              mobile: "18688995566"
+            }
           }
         })
       });

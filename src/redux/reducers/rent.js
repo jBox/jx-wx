@@ -1,6 +1,4 @@
 import { combineReducers } from "redux";
-import auth from "./auth";
-import settings from "./settings";
 import order from "./order";
 
 import {
@@ -21,8 +19,6 @@ const status = (state = "init", action) => {
 };
 
 export default combineReducers({
-    auth,
-    settings,
     order,
     status
 });

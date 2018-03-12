@@ -31,7 +31,8 @@ export const submitOrder = (order) => (dispatch) => {
             ...order,
             id: "20180313090001",
             status: "submit",
-            traces: [{ operator: "系统", state: "订单已经生成" }]
+            traces: [{ operator: "系统", state: "订单已经生成" }],
+            createTime: new Date().toISOString()
         }
     }), 1000);
 };

@@ -1,9 +1,9 @@
 import { createSelector } from "reselect";
 
 export const modifySelector = createSelector(
-    (state) => state.order.vehicles,
+    (state) => state.rent.order.vehicles,
     (state, props) => {
-        const { vehicles } = state.order;
+        const { vehicles } = state.rent.order;
         const { match: { params: { id } } } = props;
         const index = Number(id);
         if (index >= 0) {
@@ -19,22 +19,22 @@ export const modifySelector = createSelector(
 );
 
 export const doneSelector = createSelector(
-    (state) => state.order,
+    (state) => state.rent.order,
     (order) => {
         return { order };
     }
 );
 
 export const trackingSelector = createSelector(
-    (state) => state.order,
+    (state) => state.rent.order,
     (order) => {
         return { order };
     }
 );
 
 export default createSelector(
-    (state) => state.order,
-    (state) => state.status,
+    (state) => state.rent.order,
+    (state) => state.rent.status,
     (order, status) => {
         return { order, status };
     }

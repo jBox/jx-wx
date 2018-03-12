@@ -47,7 +47,7 @@ const OptionalCell = ({ label, children }) => (
     </FormCell>
 );
 
-export default class Order extends React.Component {
+export default class OrderDetails extends React.Component {
     static defaultProps = {
         data: {},
         error: {}
