@@ -24,6 +24,7 @@ app.set("views", Path.resolve(ROOT, "app/views"));
 app.set("view engine", "html");
 
 // configuration
+app.set("manifest", Path.resolve(ROOT, "static/dist/manifest.json"));
 app.set("company", configuration.company);
 
 // uncomment after placing your favicon in /public

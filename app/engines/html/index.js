@@ -1,6 +1,34 @@
-"use strict";
-
 const fs = require("fs-extra");
+const manifestFactory = require("./manifest");
+
+const htmls = {};
+
+const readHtml = (path) => {
+    const fsOptions = { encoding: "utf8" };
+    if (process.env.NODE_ENV === "development") {
+        return fs.readFile(path, fsOptions);
+    }
+
+    if (htmls[path]) {
+        return Promise.resolve(htmls[path]);
+    } else {
+        return fs.readFile(path, fsOptions).then((data) => {
+            return htmls[path] = data;
+        });
+    }
+};
+
+const translate = (models = {}) => (token) => {
+    const tokens = token.split(".");
+    if (tokens.length === 1) {
+        return models[token];
+    }
+
+    const piece = tokens[0];
+    const rest = models[piece];
+    const restToken = tokens.slice(1).join(".");
+    return translate(rest)(restToken);
+};
 
 /**
  * @param {string}   file
@@ -8,21 +36,22 @@ const fs = require("fs-extra");
  * @param {function} cb
  */
 module.exports = (file, opts, cb) => {
+    const tasks = [
+        Promise.resolve(translate(opts.models)),
+        manifestFactory(opts.settings.manifest),
+        readHtml(file)
+    ];
+    Promise.all(tasks).then(([models, manifest, html]) => {
+        const markup = html.replace(/{{[\w\.-\d]+}}/ig, (m) => {
+            const [, token] = /{{(.+?)}}/ig.exec(m);
 
-    try {
-        fs.readFile(file, "utf8").then((html) => {
-            const markup = html.replace(/{{.+?}}/ig, m => {
-                const [, key] = Array.from(/^{{(.+?)}}$/ig.exec(m));
-                if (/\.(cs|j)s$/ig.test(key)) {
-                    return key;
-                }
+            if (/.*?\.(js|css)$/ig.test(token)) {
+                return manifest(token);
+            }
 
-                return opts.hasOwnProperty(key) ? opts[key] : "";
-            });
+            return models(token);
+        });
 
-            cb(null, markup);
-        }).catch((error) => cb(error));
-    } catch (e) {
-        return void cb(e);
-    }
+        cb(null, markup);
+    }).catch((error) => cb(error));
 };

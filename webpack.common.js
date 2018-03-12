@@ -2,12 +2,7 @@ const Path = require("path");
 const webpack = require("webpack");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
-// Create multiple instances
-const extractCSS = new ExtractTextPlugin("[name].css", {
-    allChunks: true,
-});
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 const config = require("./package").config;
 
@@ -27,7 +22,7 @@ module.exports = {
             },
             {
                 test: /\.css$/i,
-                use: extractCSS.extract({
+                use: ExtractTextPlugin.extract({
                     fallback: "style-loader",
                     use: [
                         {
@@ -55,12 +50,6 @@ module.exports = {
         }
     },
     plugins: [
-        extractCSS,
-
         new CleanWebpackPlugin(["static/dist"])
-    ],
-    output: {
-        filename: "[name].js",
-        path: Path.resolve(__dirname, "static/dist")
-    }
+    ]
 };

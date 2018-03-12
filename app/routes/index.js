@@ -10,14 +10,17 @@ router.get("/:operation?/:any*?", (req, res, next) => {
     case "orders":
     case "profile":
       return res.render("index", {
-        title: req.app.get("company"), initialState: JSON.stringify({
-          rent: {
-            order: {
-              name: "王小丫",
-              mobile: "18688995566"
+        models: {
+          title: req.app.get("company"),
+          initialState: JSON.stringify({
+            rent: {
+              order: {
+                name: "王小丫",
+                mobile: "18688995566"
+              }
             }
-          }
-        })
+          })
+        }
       });
     default:
       return next();
