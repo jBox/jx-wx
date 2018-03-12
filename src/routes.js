@@ -8,7 +8,8 @@ import Rent, {
 } from "./containers/Rent";
 import Orders, {
     OrdersList,
-    OrderDetails
+    OrderDetails,
+    OrderTrackingDetails
 } from "./containers/Orders";
 
 export default [
@@ -58,6 +59,11 @@ export default [
                 path: "/orders/:id",
                 exact: true,
                 component: OrderDetails
+            },
+            {
+                path: "/orders/:id/tracking",
+                exact: true,
+                component: OrderTrackingDetails
             }
         ]
     }

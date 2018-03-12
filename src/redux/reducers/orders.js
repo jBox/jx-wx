@@ -10,7 +10,10 @@ const list = (state = [{
     status: "submit",
     createTime: new Date().toISOString(),
     vehicles: [{ model: "mvp", count: 2, withDriver: true }],
-    traces: [{ operator: "System", state: "Good" }]
+    traces: [
+        { operator: "System", state: "Good" },
+        { operator: "操作员", state: "还可以哦" }
+    ]
 }, {
     id: "20180303097835",
     name: "小红",

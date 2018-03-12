@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import isEqual from "lodash/isEqual";
 import { orderSelector } from "../../redux/selectors/orders";
 import {
     Preview,
@@ -20,7 +19,8 @@ class Details extends React.Component {
     }
 
     handleStatusClick = (order) => {
-        console.log(order);
+        const { history } = this.props;
+        history.push(`/orders/${order.id}/tracking`);
     }
 
     handleBack = () => {
@@ -37,9 +37,8 @@ class Details extends React.Component {
                 <CellsTitle>操作</CellsTitle>
                 <Preview>
                     <PreviewFooter>
-                        <PreviewButton onClick={this.handleBack}>返回</PreviewButton>
-                        <PreviewButton primary>删除</PreviewButton>
-                        <PreviewButton primary>修改</PreviewButton>
+                        <PreviewButton>取消订单</PreviewButton>
+                        <PreviewButton primary onClick={this.handleBack}>确认</PreviewButton>
                     </PreviewFooter>
                 </Preview>
             </Page>
