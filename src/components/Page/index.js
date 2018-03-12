@@ -1,6 +1,6 @@
 import React from "react";
 import classNames from "classnames";
-import styles from "./Page.css";
+import styles from "./page.css";
 
 export default ({ children, className, title }) => (
     <div className={classNames(styles.page, className)}>
