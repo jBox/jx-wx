@@ -119,7 +119,7 @@ export default class Vehicle extends React.Component {
             (<Form key="notes">
                 <FormCell>
                     <CellBody>
-                        <TextArea placeholder="其他要求" rows="2" maxlength="200" name="notes" defaultValue={defaultValue.notes} onChange={this.handleInputChange} />
+                        <TextArea placeholder="其他要求" rows="2" maxLength="100" name="notes" defaultValue={defaultValue.notes} onChange={this.handleInputChange} />
                     </CellBody>
                 </FormCell>
             </Form>)

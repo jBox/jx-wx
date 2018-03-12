@@ -18,6 +18,20 @@ export const modifySelector = createSelector(
     }
 );
 
+export const doneSelector = createSelector(
+    (state) => state.order,
+    (order) => {
+        return { order };
+    }
+);
+
+export const trackingSelector = createSelector(
+    (state) => state.order,
+    (order) => {
+        return { order };
+    }
+);
+
 export default createSelector(
     (state) => state.order,
     (state) => state.status,

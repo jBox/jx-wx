@@ -44,10 +44,15 @@ class Rent extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.status !== this.props.status) {
-            const showLoading = nextProps.status === "submit";
-            if (this.state.showLoading !== showLoading) {
-                this.setState({ showLoading });
+        const { order, status } = nextProps;
+        if (status !== this.props.status) {
+            if (status === "submit") {
+                const showLoading = true;
+                if (this.state.showLoading !== showLoading) {
+                    this.setState({ showLoading });
+                }
+            } else if (status === "success") {
+                this.forward(order);
             }
         }
     }
@@ -80,6 +85,11 @@ class Rent extends React.Component {
         if (this.validate() && submitOrder) {
             submitOrder({ ...order, ...this.baseInfo });
         }
+    }
+
+    forward = (order) => {
+        const { history } = this.props;
+        history.replace(`/done`);
     }
 
     deferCloseToptips = () => {
