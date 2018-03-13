@@ -9,10 +9,11 @@ router.get("/:operation?/:any*?", (req, res, next) => {
     case "rent":
     case "orders":
     case "profile":
-      return res.render("index", {
-        models: {
+      if (req.auth && req.auth.token) {
+        const models = {
           title: req.app.get("company"),
           initialState: JSON.stringify({
+            auth: req.auth,
             rent: {
               order: {
                 name: "王小丫",
@@ -20,11 +21,13 @@ router.get("/:operation?/:any*?", (req, res, next) => {
               }
             }
           })
-        }
-      });
-    default:
-      return next();
+        };
+
+        return res.render("index", { models });
+      }
   }
+
+  return res.redirect("/login");
 });
 
 module.exports = router;

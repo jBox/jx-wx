@@ -15,8 +15,9 @@ const getNumberEnvironmentVariable = (key) => {
 module.exports = {
     version: require("../package").version,
     company: getEnvironmentVariable("JX_COMPANY_NAME"),
+    apiPort: getEnvironmentVariable("JX_API_PORT") || "5078",
     wx: {
-        appid: getEnvironmentVariable("JX_WX_APP_ID"),
-        secret: getEnvironmentVariable("JX_WX_APP_SECRET")
+        appid: getEnvironmentVariable("JX_WX_APP_ID") || "appid",
+        secret: getEnvironmentVariable("JX_WX_APP_SECRET") || "secret"
     }
 };
