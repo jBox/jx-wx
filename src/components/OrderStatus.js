@@ -13,7 +13,7 @@ const ORDER_STATUS = {
     "submit": "已经提交"
 }
 
-const Trace = ({ operator, state }) => (<PreviewItem label={operator} value={state} />);
+const Trace = ({ time, state }) => (<PreviewItem label={new Date(time).format("yyyy-MM-dd hh:mm")} value={state} />);
 
 export default class OrderStatus extends React.Component {
     static propTypes = {

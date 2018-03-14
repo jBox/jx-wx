@@ -37,17 +37,19 @@ const VehicleDetail = ({ vehicle }) => {
 };
 
 const PreviewDetails = ({ order }) => {
+    const departureTime = new Date(order.departureTime).format("yyyy-MM-dd hh:mm");
+    const createTime = new Date(order.createTime).format("yyyy-MM-dd hh:mm");
     return (
         <PreviewBody>
             <PreviewItem label="联系人" value={order.name} />
             <PreviewItem label="联系电话" value={order.mobile} />
-            <PreviewItem label="出发时间" value={order.departureTime} />
+            <PreviewItem label="出发时间" value={departureTime} />
             <PreviewItem label="出发地点" value={order.departurePlace} />
             <PreviewItem label="目的地" value={order.destination} />
             <PreviewItem label="租车天数" value={order.duration} />
             {order.vehicles.map((v, index) => (<VehicleDetail key={index} vehicle={v} />))}
             {order.notes && (<PreviewItem label="备注" value={order.notes} />)}
-            <PreviewItem label="下单时间" value={order.createTime} />
+            <PreviewItem label="下单时间" value={createTime} />
         </PreviewBody>
     );
 };

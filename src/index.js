@@ -1,3 +1,4 @@
+import "./utils/dateFormat";
 import React from "react";
 import routes from "./routes";
 import Route from "./Route";
