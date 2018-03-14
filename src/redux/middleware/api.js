@@ -1,37 +1,33 @@
 import { API } from "../actions/ActionTypes";
 import qs from "qs";
 
-const request = (endpoint, token) => {
+const request = (endpoint, { token, settings }) => {
     const headers = { "Cache-Control": "no-cache", ...(endpoint.headers || {}) };
     if (token) {
-        headers["Authorization"] = `Bearer ${token}`;
+        headers["Authorization"] = `${token.token_type} ${token.access_token}`;
     }
 
+    const options = {
+        method: endpoint.method || "GET",
+        headers
+    };
+    const url = `${settings.api}${endpoint.url}`;
     if (endpoint.data && /^p(u|os)t$/ig.test(endpoint.method)) {
         headers["Content-Type"] = "application/json";
+        options.body = JSON.stringify(endpoint.data);
     }
 
-    let url = `/api${endpoint.url}`;
-    if (endpoint.params) {
-        const search = qs.stringify(endpoint.params);
-        if (search) {
-            if (url.indexOf("?") === -1) {
-                url = `${url}?${search}`;
-            } else {
-                url = `${url}&${search}`;
-            }
+    const checkStatus = (response) => {
+        if (response.status >= 200 && response.status < 300) {
+            return response;
+        } else {
+            const error = new Error(response.statusText);
+            error.response = response;
+            throw error;
         }
-    }
-
-
-    const request = {
-        method: endpoint.method || "GET",
-        headers,
-        body: endpoint.data,
-        mode: "cors"
     };
 
-    return rex(url, request).then((res) => res.data);
+    fetch(url, options).then(checkStatus).then(res => res.JSON());
 };
 
 const noop = (arg) => (arg);
@@ -57,7 +53,7 @@ export default ({ dispatch, getState }) => next => action => {
 
     let { endpoint } = action;
     const beforeCb = action.before || noop;
-    const doneCb = action.done || noop;
+    const successCb = action.success || noop;
     const errorCb = action.error || noop;
     const state = getState();
 
@@ -68,15 +64,17 @@ export default ({ dispatch, getState }) => next => action => {
     endpoint => perfect(endpoint);
 
     try {
-        before({ dispatch, getState });
+        beforeCb({ dispatch, getState });
     } catch (ex) {
         console.error(ex);
     }
 
-    const { auth: { token } } = state;
-    return request(endpoint, token).then((data) => {
-        return doneCb({ dispatch, getState, data });
+    const { auth: { token }, settings } = state;
+    return request(endpoint, { token, settings }).then((data) => {
+        console.log(data);
+        return successCb({ dispatch, getState, data });
     }).catch((error) => {
+        console.error(error);
         return errorCb({ dispatch, getState, error });
     })
 }

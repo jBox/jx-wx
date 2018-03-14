@@ -1,9 +1,10 @@
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import logger from "redux-logger";
+import api from "./redux/middleware/api";
 
 const configureStore = (rootReducer, preloadedState) => {
-    const middlewares = [thunk];
+    const middlewares = [api, thunk];
     if (process.env.NODE_ENV === "development") {
         middlewares.push(logger);
     }

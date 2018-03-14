@@ -1,4 +1,5 @@
 import {
+    API,
     UPDATE_ORDER,
     UPDATE_VEHICLES,
     SUBMIT_ORDER_REQUEST,
@@ -19,20 +20,17 @@ export const updateOrder = (order) => ({
 
 export const resetOrder = () => ({ type: RESET_ORDER });
 
-export const submitOrder = (order) => (dispatch) => {
-    dispatch({
-        type: SUBMIT_ORDER_REQUEST,
-        order
-    });
+export const submitOrder = (order) => {
 
-    setTimeout(() => dispatch({
-        type: SUBMIT_ORDER_SUCCESS,
-        order: {
-            ...order,
-            id: "20180313090001",
-            status: "submit",
-            traces: [{ operator: "系统", state: "订单已经生成" }],
-            createTime: new Date().toISOString()
+    return {
+        type: API,
+        endpoint: { url: "/api/orders", method: "POST", data: order },
+        before: ({ dispatch }) => dispatch({ type: SUBMIT_ORDER_REQUEST, order }),
+        success: ({ data, dispatch }) => {
+            dispatch({
+                type: SUBMIT_ORDER_SUCCESS,
+                order: data
+            });
         }
-    }), 1000);
+    }
 };

@@ -8,7 +8,8 @@ module.exports = cv.setup((getenv) => ({
     host: getenv("JX_WX_HOST"),
     jx: {
         company: getenv("JX_COMPANY_NAME"),
-        apiPort: getenv("JX_API_PORT")
+        apiPort: getenv("JX_API_PORT"),
+        apiHost: getenv("JX_API_EXTERNAL_HOST")
     },
     wx: {
         appid: getenv("JX_WX_APP_ID"),
