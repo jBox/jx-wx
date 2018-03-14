@@ -1,33 +1,26 @@
 const express = require("express");
 const router = express.Router();
 
+const operations = ["index", "rent", "orders", "profile"];
+
 /* GET page. */
 router.get("/:operation?/:any*?", (req, res, next) => {
   const { operation = "index" } = req.params;
-  switch (operation) {
-    case "index":
-    case "rent":
-    case "orders":
-    case "profile":
-      if (req.auth && req.auth.token) {
-        const models = {
-          title: req.app.get("company"),
-          initialState: JSON.stringify({
-            auth: req.auth,
-            rent: {
-              order: {
-                name: "王小丫",
-                mobile: "18688995566"
-              }
-            }
-          })
-        };
+  if (operations.includes(operation)) {
+    if (req.auth && req.auth.token) {
+      const state = { auth: req.auth };
+      const models = {
+        title: req.app.get("company"),
+        initialState: JSON.stringify(state)
+      };
 
-        return res.render("index", { models });
-      }
+      return res.render("index", { models });
+    } else {
+      return res.redirect("/login");
+    }
   }
 
-  return res.redirect("/login");
+  return next();
 });
 
 module.exports = router;

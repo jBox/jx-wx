@@ -1,3 +1,7 @@
+//// CALL API ////
+export const API = "@CALL/API";
+/********************************/
+
 /***************** START RENT *****************/
 export const UPDATE_ORDER = "rent/update";
 export const UPDATE_VEHICLES = "rent/vehicles/update";

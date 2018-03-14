@@ -11,6 +11,7 @@ const cv = require("config-vars");
 // routes
 const index = require("./routes/index");
 const operation = require("./routes/operation");
+const login = require("./routes/login");
 
 // viewEngine
 const viewEngine = require("./engines/html");
@@ -35,26 +36,19 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/static", express.static(Path.resolve(ROOT, "static")));
 
 // wechat authorize
-app.use("/:target?",wechat);
+app.use("/:target?", wechat);
 
+app.use("/login", login);
 app.use("/operation", operation);
 app.use("/", index);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  const err = new Error("Not Found");
-  err.status = 404;
-  next(err);
+  res.render("404");
 });
 
 // error handler
 app.use((err, req, res, next) => {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
   res.render("error");
 });
 
