@@ -1,7 +1,8 @@
 const request = require("request");
-const configuration = require("../configuration");
+const md5 = require("md5");
+const cv = require("config-vars");
 
-const API_HOST = `http://localhost:${configuration.apiPort}`;
+const API_INTERNAL_HOST = `http://localhost:${cv.env.jx.apiPort}`;
 
 const wechat = (req, res, next) => {
     const { code, state } = req.query;
@@ -11,7 +12,7 @@ const wechat = (req, res, next) => {
         }
 
         const { target } = req.params;
-        const { wx: { appid, secret } } = configuration;
+        const { wx: { appid, secret } } = cv.env;
         // 200: access_token
         // 400: Bad request
         // 404: Not Found, need to get userinfo form wx
@@ -19,9 +20,9 @@ const wechat = (req, res, next) => {
         // GET /oauth/token?secret=secret&code=code&grant_type=authorization_code`;
         const options = {
             method: "GET",
-            baseUrl: API_HOST,
+            baseUrl: API_INTERNAL_HOST,
             url: "/oauth/token",
-            qs: { code, secret: appid + secret, grant_type: "authorization_code" }
+            qs: { code, secret: md5(appid + secret), grant_type: "authorization_code" }
         };
         return request(options, (error, response, body) => {
             if (error) {
@@ -37,8 +38,6 @@ const wechat = (req, res, next) => {
                 case 200:
                     req.auth = { token: body };
                     return next();
-                case 404:
-                    return res.redirect(`/operation?type=authorize&scope=snsapi_userinfo&target=${target}`);
                 default:
                     return next();
             }

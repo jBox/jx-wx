@@ -6,7 +6,7 @@ const favicon = require("serve-favicon");
 const logger = require("morgan");
 const bodyParser = require("body-parser");
 const wechat = require("./middlewares/wechat");
-const configuration = require("./configuration");
+const cv = require("config-vars");
 
 // routes
 const index = require("./routes/index");
@@ -25,7 +25,7 @@ app.set("view engine", "html");
 
 // configuration
 app.set("manifest", Path.resolve(ROOT, "static/dist/manifest.json"));
-app.set("company", configuration.company);
+app.set("company", cv.env.jx.company);
 
 // uncomment after placing your favicon in /public
 app.use(favicon(Path.resolve(ROOT, "static", "favicon.ico")));

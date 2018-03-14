@@ -2,6 +2,7 @@
   "name": "jx-wx",
   "version": "1.0.0",
   "private": true,
+  "main": "server.js",
   "scripts": {
     "start": "nodemon --watch app --watch static ./bin/www",
     "startup": "forever start ./bin/www",
@@ -16,10 +17,12 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "classnames": "^2.2.5",
+    "config-vars": "^1.0.1",
     "express": "^4.16.2",
     "forever": "^0.15.3",
     "fs-extra": "^5.0.0",
     "lodash": "^4.17.5",
+    "md5": "^2.2.1",
     "morgan": "^1.9.0",
     "nodemon": "^1.17.1",
     "prop-types": "^15.6.1",

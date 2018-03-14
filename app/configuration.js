@@ -1,23 +1,18 @@
-const getEnvironmentVariable = (key) => {
-    return process.env[key] || "";
-};
+const cv = require("config-vars");
 
-const getBooleanEnvironmentVariable = (key) => {
-    const original = getEnvironmentVariable(key);
-    return /^true$/ig.test(original);
-};
+const version = require("../package").version;
 
-const getNumberEnvironmentVariable = (key) => {
-    const original = getEnvironmentVariable(key);
-    return original === "" ? undefined : Number(original);
-};
-
-module.exports = {
-    version: require("../package").version,
-    company: getEnvironmentVariable("JX_COMPANY_NAME"),
-    apiPort: getEnvironmentVariable("JX_API_PORT") || "5078",
+module.exports = cv.setup((getenv) => ({
+    version,
+    port: getenv("JX_WX_PORT"),
+    host: getenv("JX_WX_HOST"),
+    jx: {
+        company: getenv("JX_COMPANY_NAME"),
+        apiPort: getenv("JX_API_PORT")
+    },
     wx: {
-        appid: getEnvironmentVariable("JX_WX_APP_ID") || "appid",
-        secret: getEnvironmentVariable("JX_WX_APP_SECRET") || "secret"
+        appid: getenv("JX_WX_APP_ID"),
+        secret: getenv("JX_WX_APP_SECRET"),
+        openHost: getenv("WX_OPEN_HOST")
     }
-};
+}));
