@@ -14,14 +14,7 @@ import {
     CellFooter
 } from "react-weui";
 
-const MODEL_LABELS = {
-    "mvp": "商务车",
-    "sedan": "轿车"
-};
-
-const ORDER_STATUS = {
-    "submit": "已经提交"
-}
+import { MODEL_LABELS, ORDER_STATUS } from "../utils/constants";
 
 const VehicleDetail = ({ vehicle }) => {
     const model = MODEL_LABELS[vehicle.model];

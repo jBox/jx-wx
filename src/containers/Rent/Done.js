@@ -32,6 +32,11 @@ class Done extends React.Component {
         }
     }
 
+    handleOrdersClick = () => {
+        const { history } = this.props;
+        history.replace("/orders");
+    }
+
     render() {
         const { order } = this.props;
         return (
@@ -42,7 +47,7 @@ class Done extends React.Component {
                 <Preview>
                     <PreviewFooter>
                         <PreviewButton onClick={this.handleRentMore}>继续预约</PreviewButton>
-                        <PreviewButton primary>我的订单</PreviewButton>
+                        <PreviewButton primary onClick={this.handleOrdersClick}>我的订单</PreviewButton>
                     </PreviewFooter>
                 </Preview>
             </Page>

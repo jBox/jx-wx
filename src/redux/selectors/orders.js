@@ -27,6 +27,6 @@ export const trackingSelector = createSelector(
 export default createSelector(
     (state) => state.orders,
     (orders) => {
-        return { orders: orders.list };
+        return { orders: orders.list, hasMore: !!orders.next };
     }
 );

@@ -15,11 +15,7 @@ import {
     Label,
     TextArea
 } from "react-weui";
-
-const MODEL_LABELS = {
-    "mvp": "商务车",
-    "sedan": "轿车"
-};
+import { MODEL_LABELS } from "../utils/constants";
 
 const clickHander = (obj, onClick) => () => onClick(obj);
 

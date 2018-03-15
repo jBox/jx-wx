@@ -13,15 +13,7 @@ import {
     CellBody,
     CellFooter
 } from "react-weui";
-
-const MODEL_LABELS = {
-    "mvp": "商务车",
-    "sedan": "轿车"
-};
-
-const ORDER_STATUS = {
-    "submit": "已经提交"
-}
+import { MODEL_LABELS, ORDER_STATUS } from "../utils/constants";
 
 const CellMore = ({ onClick }) => (
     <Cell access link onClick={onClick}>
@@ -55,6 +47,9 @@ export default class OrderPanel extends React.Component {
 
     render() {
         const { order } = this.props;
+        const formatStr = "yyyy-MM-dd hh:ss";
+        const departureTime = new Date(order.departureTime).format(formatStr);
+        const createTime = new Date(order.createTime).format(formatStr);
         return (
             <Panel>
                 <PanelHeader>
@@ -64,12 +59,12 @@ export default class OrderPanel extends React.Component {
                     <MediaBox type="text">
                         <MediaBoxDescription>
                             <p>{order.name} | {order.mobile}</p>
-                            <p>出发时间：{order.departureTime}</p>
+                            <p>出发时间：{departureTime}</p>
                             <p>出发地点：{order.departurePlace}</p>
                             {order.vehicles.map((vehicle, i) => (<VehicleItem key={i} {...vehicle} />))}
                         </MediaBoxDescription>
                         <MediaBoxInfo>
-                            <MediaBoxInfoMeta>{order.createTime}</MediaBoxInfoMeta>
+                            <MediaBoxInfoMeta>{createTime}</MediaBoxInfoMeta>
                             <MediaBoxInfoMeta extra>{ORDER_STATUS[order.status]}</MediaBoxInfoMeta>
                         </MediaBoxInfo>
                     </MediaBox>

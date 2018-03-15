@@ -9,9 +9,7 @@ import {
     CellsTitle
 } from "react-weui";
 
-const ORDER_STATUS = {
-    "submit": "已经提交"
-}
+import { ORDER_STATUS } from "../utils/constants";
 
 const Trace = ({ time, state }) => (<PreviewItem label={new Date(time).format("yyyy-MM-dd hh:mm")} value={state} />);
 

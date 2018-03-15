@@ -1,35 +1,27 @@
 import { combineReducers } from "redux";
+import {
+    QUERY_ORDERS_SUCCESS
+} from "../actions/ActionTypes";
 
-const list = (state = [{
-    id: "20180303097834",
-    name: "小红",
-    mobile: "18988996789",
-    departureTime: "20180303097834",
-    departurePlace: "20180303097834",
-    destination: "20180303097834",
-    status: "submit",
-    createTime: new Date().toISOString(),
-    vehicles: [{ model: "mvp", count: 2, withDriver: true }],
-    traces: [
-        { operator: "System", state: "Good" },
-        { operator: "操作员", state: "还可以哦" }
-    ]
-}, {
-    id: "20180303097835",
-    name: "小红",
-    mobile: "18988996789",
-    departureTime: "20180303097834",
-    departurePlace: "20180303097834",
-    destination: "20180303097834",
-    status: "submit",
-    notes: "sfasf afasf",
-    createTime: new Date().toISOString(),
-    vehicles: [{ model: "mvp", count: 2, withDriver: true }],
-    traces: [{ operator: "System", state: "Good" }]
-}], action) => {
-    return state;
-}
+const list = (state = [], action) => {
+    switch (action.type) {
+        case QUERY_ORDERS_SUCCESS:
+            return [...state, ...action.orders];
+        default:
+            return state;
+    }
+};
+
+const next = (state = "", action) => {
+    switch (action.type) {
+        case QUERY_ORDERS_SUCCESS:
+            return action.next;
+        default:
+            return state;
+    }
+};
 
 export default combineReducers({
-    list
+    list,
+    next
 });

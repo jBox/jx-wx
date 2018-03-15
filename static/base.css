@@ -11,3 +11,7 @@ body {
 .weui-form-preview__value {
     font-style: normal;
 }
+
+.weui-loadmore_line .weui-loadmore__tips {
+    background-color: #f8f8f8;
+}
