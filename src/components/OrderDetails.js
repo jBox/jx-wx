@@ -137,7 +137,7 @@ export default class OrderDetails extends React.Component {
 
             (<CellsTitle key="vehicleinfo">车辆信息</CellsTitle>),
             (<Cells key="vehicles">
-                {vehicles.map((v, index) => (<VehicleItem key={index} {...v} onClick={this.handleEditVehicle} />))}
+                {vehicles.map((v) => (<VehicleItem key={v.id} {...v} onClick={this.handleEditVehicle} />))}
                 <Cell access onClick={this.handleAddVehicle}>
                     <CellBody>
                         添加车辆

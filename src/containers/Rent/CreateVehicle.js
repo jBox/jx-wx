@@ -64,8 +64,8 @@ class Create extends React.Component {
                 <Vehicle onChange={this.handleVehicleChange} onError={this.handleVehicleError} defaultValue={this.vehicle} />
 
                 <ButtonArea direction="horizontal">
-                    <Button type="warn" onClick={this.handleCancelClick}>放弃</Button>
-                    <Button onClick={this.handleSubmitClick} disabled={this.state.error}>添加</Button>
+                    <Button type="default" onClick={this.handleCancelClick}>返回</Button>
+                    <Button type="primary" onClick={this.handleSubmitClick} disabled={this.state.error}>添加</Button>
                 </ButtonArea>
             </Page>
         );

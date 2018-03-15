@@ -3,7 +3,8 @@ import {
     QUERY_ORDERS_SUCCESS,
     UPDATE_ORDER_REQUEST,
     UPDATE_ORDER_SUCCESS,
-    UPDATE_ORDER_FAILURE
+    UPDATE_ORDER_FAILURE,
+    RESET_ORDER_STATUS
 } from "../actions/ActionTypes";
 
 const cancelOrder = (state, order) => {
@@ -24,6 +25,8 @@ const deleteOrder = (state, order) => {
     for (let item of state) {
         if (item.id !== order.id) {
             items.push(item);
+        } else {
+            items.push({ ...order, deleted: true });
         }
     }
 
@@ -60,14 +63,16 @@ const next = (state = "", action) => {
 };
 
 const status = (state = {}, action) => {
-    const { order } = action;
+    const { order, operation } = action;
     switch (action.type) {
         case UPDATE_ORDER_REQUEST:
-            return { ...state, [order.id]: { state: "request" } }
+            return { ...state, [order.id]: { state: "request", operation } }
         case UPDATE_ORDER_SUCCESS:
-            return { ...state, [order.id]: { state: "success" } }
+            return { ...state, [order.id]: { state: "success", operation } }
         case UPDATE_ORDER_FAILURE:
-            return { ...state, [order.id]: { state: "failure", error: action.error } }
+            return { ...state, [order.id]: { state: "failure", operation, error: action.error } }
+        case RESET_ORDER_STATUS:
+            return { ...state, [order.id]: { state: "initial" } }
         default:
             return state;
     }

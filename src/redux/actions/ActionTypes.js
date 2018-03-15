@@ -18,4 +18,5 @@ export const QUERY_ORDERS_FAILURE = "orders/fai";
 export const UPDATE_ORDER_REQUEST = "orders/update/req";
 export const UPDATE_ORDER_SUCCESS = "orders/update/suc";
 export const UPDATE_ORDER_FAILURE = "orders/update/fai";
+export const RESET_ORDER_STATUS = "orders/stat/r";
 /***************** END ORDERS   *****************/

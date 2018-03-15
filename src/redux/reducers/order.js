@@ -161,11 +161,15 @@ const vehicles = (state = [], action) => {
             if (index > -1) {
                 // modify
                 const newState = [...state];
-                newState[index] = vehicle;
+                if (vehicle.delete) {
+                    newState.splice(index, 1);
+                } else {
+                    newState[index] = vehicle;
+                }
                 return newState;
             } else {
                 // add
-                vehicle.id = state.length;
+                vehicle.id = Number("" + Date.now() + state.length);
                 return [...state, vehicle];
             }
         case SUBMIT_ORDER_REQUEST:

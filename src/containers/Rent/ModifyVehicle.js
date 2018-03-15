@@ -50,6 +50,14 @@ class Modify extends React.Component {
         this.goBack();
     }
 
+    handleDeleteClick = (item) => {
+        const { vehicle, modify } = this.props;
+        if (modify) {
+            modify({ id: vehicle.id, delete: true });
+        }
+        this.goBack();
+    }
+
     handleVehicleChange = (item) => {
         this.vehicle = item;
         const state = {};
@@ -80,8 +88,9 @@ class Modify extends React.Component {
                 <Vehicle onChange={this.handleVehicleChange} onError={this.handleVehicleError} defaultValue={this.vehicle} />
 
                 <ButtonArea direction="horizontal">
-                    <Button type="warn" onClick={this.handleCancelClick}>放弃</Button>
-                    <Button onClick={this.handleSubmitClick} disabled={error || !changed}>修改</Button>
+                    <Button type="default" onClick={this.handleCancelClick}>返回</Button>
+                    <Button type="warn" onClick={this.handleDeleteClick}>删除</Button>
+                    <Button type="primary" onClick={this.handleSubmitClick} disabled={error || !changed}>修改</Button>
                 </ButtonArea>
             </Page>
         );

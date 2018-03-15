@@ -5,7 +5,8 @@ import {
     QUERY_ORDERS_FAILURE,
     UPDATE_ORDER_REQUEST,
     UPDATE_ORDER_SUCCESS,
-    UPDATE_ORDER_FAILURE
+    UPDATE_ORDER_FAILURE,
+    RESET_ORDER_STATUS
 } from "./ActionTypes";
 
 export const initialLoad = () => (dispatch, getState) => {
@@ -62,3 +63,10 @@ const updateOrder = (order, operation) => {
 export const cancelOrder = (order) => updateOrder(order, "cancel");
 
 export const deleteOrder = (order) => updateOrder(order, "delete");
+
+export const resetOrderStatus = (order) => {
+    return {
+        type: RESET_ORDER_STATUS,
+        order
+    };
+}

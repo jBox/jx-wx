@@ -104,6 +104,7 @@ class Order extends React.Component {
     }
 
     validate = () => {
+        const { order } = this.props;
         const checkMobile = (str) => (/^1\d{10}$/g.test(str));
         const data = this.baseInfo;
         const keys = ["name", "mobile", "departureTime", "departurePlace", "destination", "duration"];
@@ -127,6 +128,10 @@ class Order extends React.Component {
             if (key === "duration" && value <= 0) {
                 return this.showError(key, "请输入正确的租车天数");
             }
+        }
+
+        if (order.vehicles.length === 0) {
+            return this.showError("vehicle", "请添加车辆");
         }
 
         return true;
