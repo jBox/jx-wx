@@ -7,8 +7,9 @@ export const orderSelector = createSelector(
     },
     (state) => state.orders,
     (id, orders) => {
+        const status = orders.status[id] || { state: "initial" };
         const order = orders.list.find(x => x.id === id);
-        return { order };
+        return { order, status };
     }
 );
 

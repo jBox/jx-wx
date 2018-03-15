@@ -1,6 +1,6 @@
 import {
     API,
-    UPDATE_ORDER,
+    UPDATE_ORDER_BASE,
     UPDATE_VEHICLES,
     SUBMIT_ORDER_REQUEST,
     SUBMIT_ORDER_SUCCESS,
@@ -14,7 +14,7 @@ export const updateVehicle = (vehicle) => ({
 });
 
 export const updateOrder = (order) => ({
-    type: UPDATE_ORDER,
+    type: UPDATE_ORDER_BASE,
     ...order
 });
 

@@ -3,7 +3,7 @@ export const API = "@CALL/API";
 /********************************/
 
 /***************** START RENT *****************/
-export const UPDATE_ORDER = "rent/update";
+export const UPDATE_ORDER_BASE = "rent/update";
 export const UPDATE_VEHICLES = "rent/vehicles/update";
 export const SUBMIT_ORDER_REQUEST = "rent/submit/req";
 export const SUBMIT_ORDER_SUCCESS = "rent/submit/sec";
@@ -15,4 +15,7 @@ export const RESET_ORDER = "rent/reset";
 export const QUERY_ORDERS_REQUEST = "orders/req";
 export const QUERY_ORDERS_SUCCESS = "orders/suc";
 export const QUERY_ORDERS_FAILURE = "orders/fai";
+export const UPDATE_ORDER_REQUEST = "orders/update/req";
+export const UPDATE_ORDER_SUCCESS = "orders/update/suc";
+export const UPDATE_ORDER_FAILURE = "orders/update/fai";
 /***************** END ORDERS   *****************/

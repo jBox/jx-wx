@@ -9,5 +9,6 @@ export const ORDER_STATUS = {
     "canceling": "请求取消订单",
     "cancelled": "已取消",
     "confirm": "已安排车辆",
+    "onboard": "出车中",
     "done": "已完成"
 };

@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import {
-    UPDATE_ORDER,
+    UPDATE_ORDER_BASE,
     UPDATE_VEHICLES,
     SUBMIT_ORDER_REQUEST,
     SUBMIT_ORDER_SUCCESS,
@@ -16,7 +16,7 @@ const getDefaultDepartureTime = () => {
 
 const id = (state = "", action) => {
     switch (action.type) {
-        case UPDATE_ORDER:
+        case UPDATE_ORDER_BASE:
             return action.id;
         case SUBMIT_ORDER_REQUEST:
         case SUBMIT_ORDER_SUCCESS:
@@ -52,7 +52,7 @@ const traces = (state = [], action) => {
 
 const name = (state = "", action) => {
     switch (action.type) {
-        case UPDATE_ORDER:
+        case UPDATE_ORDER_BASE:
             return action.name;
         case SUBMIT_ORDER_REQUEST:
         case SUBMIT_ORDER_SUCCESS:
@@ -64,7 +64,7 @@ const name = (state = "", action) => {
 
 const mobile = (state = "", action) => {
     switch (action.type) {
-        case UPDATE_ORDER:
+        case UPDATE_ORDER_BASE:
             return action.mobile;
         case SUBMIT_ORDER_REQUEST:
         case SUBMIT_ORDER_SUCCESS:
@@ -76,7 +76,7 @@ const mobile = (state = "", action) => {
 
 const departureTime = (state = getDefaultDepartureTime(), action) => {
     switch (action.type) {
-        case UPDATE_ORDER:
+        case UPDATE_ORDER_BASE:
             return action.departureTime;
         case SUBMIT_ORDER_REQUEST:
         case SUBMIT_ORDER_SUCCESS:
@@ -90,7 +90,7 @@ const departureTime = (state = getDefaultDepartureTime(), action) => {
 
 const departurePlace = (state = "", action) => {
     switch (action.type) {
-        case UPDATE_ORDER:
+        case UPDATE_ORDER_BASE:
             return action.departurePlace;
         case SUBMIT_ORDER_REQUEST:
         case SUBMIT_ORDER_SUCCESS:
@@ -104,7 +104,7 @@ const departurePlace = (state = "", action) => {
 
 const destination = (state = "", action) => {
     switch (action.type) {
-        case UPDATE_ORDER:
+        case UPDATE_ORDER_BASE:
             return action.destination;
         case SUBMIT_ORDER_REQUEST:
         case SUBMIT_ORDER_SUCCESS:
@@ -118,7 +118,7 @@ const destination = (state = "", action) => {
 
 const duration = (state = 3, action) => {
     switch (action.type) {
-        case UPDATE_ORDER:
+        case UPDATE_ORDER_BASE:
             return action.duration;
         case SUBMIT_ORDER_REQUEST:
         case SUBMIT_ORDER_SUCCESS:
@@ -132,7 +132,7 @@ const duration = (state = 3, action) => {
 
 const notes = (state = "", action) => {
     switch (action.type) {
-        case UPDATE_ORDER:
+        case UPDATE_ORDER_BASE:
             return action.notes;
         case SUBMIT_ORDER_REQUEST:
         case SUBMIT_ORDER_SUCCESS:
