@@ -3,7 +3,6 @@ const router = express.Router();
 const cv = require("config-vars");
 const foundation = require("../middlewares/foundation");
 const customer = require("../middlewares/customer");
-const jwtDecode = require("jwt-decode");
 
 const operations = ["index", "rent", "orders", "profile"];
 

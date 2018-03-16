@@ -7,11 +7,12 @@ const router = express.Router();
 // type input as wechat user menu external link.
 router.get("/", (req, res, next) => {
     const { type, target, scope = "snsapi_base" } = req.query;
-    if (type === "authorize") {        
-        const { wx: { appid, openHost }, host } = cv.env; 
+    if (type === "authorize") {
+        const { wx: { appid, openHost }, host } = cv.env;
         const targetUrl = encodeURIComponent(`${host}/${target}`)
         // snsapi_base Url
-        const redirectUrl = `${openHost}/connect/oauth2/authorize?appid=${appid}&redirect_uri=${targetUrl}&response_type=code&scope=${scope}&state=operation#wechat_redirect`;
+        const qs = `appid=${appid}&redirect_uri=${targetUrl}&response_type=code&scope=${scope}&state=operation#wechat_redirect`;
+        const redirectUrl = `${openHost}/connect/oauth2/authorize?${qs}`;
         return res.redirect(redirectUrl);
     }
 
