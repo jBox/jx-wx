@@ -95,8 +95,6 @@ const departurePlace = (state = "", action) => {
         case SUBMIT_ORDER_REQUEST:
         case SUBMIT_ORDER_SUCCESS:
             return action.order.departurePlace;
-        case RESET_ORDER:
-            return "";
         default:
             return state;
     }

@@ -47,9 +47,14 @@ export default class OrderPanel extends React.Component {
 
     render() {
         const { order } = this.props;
-        const formatStr = "yyyy-MM-dd hh:ss";
+        const formatStr = "yyyy-MM-dd hh:mm";
         const departureTime = new Date(order.departureTime).format(formatStr);
-        const createTime = new Date(order.createTime).format(formatStr);
+        let trackTime = new Date(order.createTime).format(formatStr);
+        if (order.traces && order.traces.length > 0) {
+            trackTime = new Date(
+                order.traces[order.traces.length - 1].time
+            ).format(formatStr);
+        }
         return (
             <Panel>
                 <PanelHeader>
@@ -64,7 +69,7 @@ export default class OrderPanel extends React.Component {
                             {order.vehicles.map((vehicle, i) => (<VehicleItem key={i} {...vehicle} />))}
                         </MediaBoxDescription>
                         <MediaBoxInfo>
-                            <MediaBoxInfoMeta>{createTime}</MediaBoxInfoMeta>
+                            <MediaBoxInfoMeta>{trackTime}</MediaBoxInfoMeta>
                             <MediaBoxInfoMeta extra>{ORDER_STATUS[order.status]}</MediaBoxInfoMeta>
                         </MediaBoxInfo>
                     </MediaBox>

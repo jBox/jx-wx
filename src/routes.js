@@ -11,6 +11,7 @@ import Orders, {
     OrderDetails,
     OrderTrackingDetails
 } from "./containers/Orders";
+import Profile from "./containers/Profile";
 
 export default [
     {
@@ -66,5 +67,9 @@ export default [
                 component: OrderTrackingDetails
             }
         ]
+    },
+    {
+        path: "/profile",
+        component: Profile
     }
 ];

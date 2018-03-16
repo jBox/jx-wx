@@ -8,6 +8,7 @@ import OrderPanel from "../../components/OrderPanel";
 import { initialLoad, loadMore } from "../../redux/actions/orders";
 import { LoadMore } from "react-weui";
 import InfiniteScroll from "react-infinite-scroller";
+import { CellsTitle } from "react-weui";
 
 class List extends React.Component {
 
@@ -34,10 +35,13 @@ class List extends React.Component {
     render() {
         const { orders, loadMore, hasMore } = this.props;
         const loader = (<LoadMore loading key={0}>正在加载</LoadMore>);
+        const noData = orders.length === 0;
+        const noMore = !hasMore && orders.length !== 0;
         return (
             <Page title="我的订单">
-                {orders.length === 0 && (<LoadMore showLine>暂无数据</LoadMore>)}
+                {noData && (<LoadMore showLine>暂无数据</LoadMore>)}
 
+                <CellsTitle></CellsTitle>
                 <InfiniteScroll
                     initialLoad={false}
                     pageStart={0}
@@ -50,7 +54,7 @@ class List extends React.Component {
                     )}
                 </InfiniteScroll>
 
-                {!hasMore && (<LoadMore showLine showDot />)}
+                {noMore && (<LoadMore showLine showDot />)}
             </Page>
         );
     }

@@ -43,7 +43,7 @@ class Done extends React.Component {
             <Page title="预约租车">
                 <OrderPreview order={order} onStatusClick={this.handleStatusClick} />
 
-                <CellsTitle>操作</CellsTitle>
+                <CellsTitle></CellsTitle>
                 <Preview>
                     <PreviewFooter>
                         <PreviewButton onClick={this.handleRentMore}>继续预约</PreviewButton>

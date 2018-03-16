@@ -41,9 +41,10 @@ class Details extends React.Component {
                 this.showToast("loading", "数据加载中");
             } else if (status.state === "success") {
                 if (status.operation === "delete") {
-                    this.handleBack();
+                    this.showToast("success", "已删除订单", this.handleBack);
+                } else {
+                    this.showToast("success", "已取消订单");
                 }
-                this.showToast("success", "已完成")
             } else if (status.state === "failure") {
                 this.showToptips("操作失败，请稍后重试！")
             }
@@ -63,7 +64,7 @@ class Details extends React.Component {
         }
     }
 
-    showToast = (type, message) => {
+    showToast = (type, message, cb) => {
         this.clearTimeout();
         const types = { success: "success-no-circle", loading: "loading" };
         this.setState({
@@ -71,7 +72,8 @@ class Details extends React.Component {
             toast: { show: true, icon: types[type], message }
         }, () => {
             if (type === "success") {
-                this.timeout = setTimeout(this.resetOrderStatus, 2000);
+                const timeoutFn = cb ? cb : this.resetOrderStatus;
+                this.timeout = setTimeout(timeoutFn, 1000);
             }
         });
     }
@@ -174,7 +176,7 @@ class Details extends React.Component {
             <Page title="我的订单">
                 <OrderPreview order={order} onStatusClick={this.handleStatusClick} />
 
-                <CellsTitle>操作</CellsTitle>
+                <CellsTitle></CellsTitle>
                 <Preview>
                     <PreviewFooter>
                         {cancelable && (<PreviewButton onClick={this.handleCancel}>取消订单</PreviewButton>)}
