@@ -12,6 +12,9 @@ export const RESET_ORDER = "rent/reset";
 /***************** END RENT   *****************/
 
 /***************** START ORDERS *****************/
+export const INIT_LOAD_ORDERS_REQUEST = "orders/init/req";
+export const INIT_LOAD_ORDERS_SUCCESS = "orders/init/suc";
+export const INIT_LOAD_ORDERS_FAILURE = "orders/init/fai";
 export const QUERY_ORDERS_REQUEST = "orders/req";
 export const QUERY_ORDERS_SUCCESS = "orders/suc";
 export const QUERY_ORDERS_FAILURE = "orders/fai";

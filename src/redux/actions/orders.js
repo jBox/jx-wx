@@ -1,5 +1,8 @@
 import {
     API,
+    INIT_LOAD_ORDERS_REQUEST,
+    INIT_LOAD_ORDERS_SUCCESS,
+    INIT_LOAD_ORDERS_FAILURE,
     QUERY_ORDERS_REQUEST,
     QUERY_ORDERS_SUCCESS,
     QUERY_ORDERS_FAILURE,
@@ -9,29 +12,32 @@ import {
     RESET_ORDER_STATUS
 } from "./ActionTypes";
 
-export const initialLoad = () => (dispatch, getState) => {
+export const initialLoad = (filter) => (dispatch, getState) => {
     const { orders } = getState();
-    if (orders.list.length === 0) {
+    if (filter || orders.list.length === 0) {
+        if (!filter) {
+            filter = "all";
+        }
         return dispatch({
             type: API,
-            endpoint: { url: "/api/orders" },
-            before: ({ dispatch }) => dispatch({ type: QUERY_ORDERS_REQUEST }),
+            endpoint: { url: `/api/orders?filter=${filter}` },
+            before: ({ dispatch }) => dispatch({ type: INIT_LOAD_ORDERS_REQUEST }),
             success: ({ data, dispatch }) => {
                 dispatch({
                     ...data,
-                    type: QUERY_ORDERS_SUCCESS
+                    type: INIT_LOAD_ORDERS_SUCCESS
                 });
             }
         });
     }
 };
 
-export const loadMore = () => (dispatch, getState) => {
+export const loadMore = (filter) => (dispatch, getState) => {
     const { orders: { next } } = getState();
     if (next) {
         return dispatch({
             type: API,
-            endpoint: { url: `/api/orders?next=${next}` },
+            endpoint: { url: `/api/orders?next=${next}&filter=${filter}` },
             before: ({ dispatch }) => dispatch({ type: QUERY_ORDERS_REQUEST }),
             success: ({ data, dispatch }) => {
                 dispatch({

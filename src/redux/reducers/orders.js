@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 import {
     QUERY_ORDERS_SUCCESS,
+    INIT_LOAD_ORDERS_SUCCESS,
     UPDATE_ORDER_REQUEST,
     UPDATE_ORDER_SUCCESS,
     UPDATE_ORDER_FAILURE,
@@ -46,6 +47,8 @@ const list = (state = [], action) => {
             }
 
             return state;
+        case INIT_LOAD_ORDERS_SUCCESS:
+            return [...action.orders];
         case QUERY_ORDERS_SUCCESS:
             return [...state, ...action.orders];
         default:
@@ -55,6 +58,7 @@ const list = (state = [], action) => {
 
 const next = (state = "", action) => {
     switch (action.type) {
+        case INIT_LOAD_ORDERS_SUCCESS:
         case QUERY_ORDERS_SUCCESS:
             return action.next;
         default:
