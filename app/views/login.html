@@ -4,11 +4,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>Login</title>
+    <title>广州市健湖汽车租赁有限公司</title>
+    <link rel="stylesheet" href="/static/login/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/static/login/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/static/login/AdminLTE.min.css" />
+    <link rel="stylesheet" href="/static/base.css" />
+    <style>
+        .btn-social.btn-wechat {
+            color: #fff;
+            background-color: #09BB07;
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-social.btn-wechat:active,
+        .btn-social.btn-wechat:focus,
+        .btn-social.btn-wechat:hover {
+            background-color: darkgreen;
+        }
+    </style>
 </head>
 
-<body ontouchstart>
-    <div id="root">Login</div>
+<body class="hold-transition login-page">
+    <div class="login-box">
+        <div class="login-logo">
+            <b>登录</b>
+        </div>
+        <!-- /.login-logo -->
+        <div class="login-box-body">
+            <form action="/login" method="post">
+                <div class="form-group">
+                    <input type="text" name="username" class="form-control" placeholder="用户名">
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" class="form-control" placeholder="密码">
+                </div>
+                <div class="row">
+                    <div class="col-xs-4 pull-right">
+                        <button type="submit" class="btn btn-primary btn-block btn-flat">登录</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+
+            <div class="social-auth-links text-center">
+                <p>- 或者 -</p>
+                <a href="{{wecharRedirectLogin}}" class="btn btn-block btn-social btn-wechat btn-flat">
+                    <i class="fa fa-wechat"></i> 使用微信登录
+                </a>
+            </div>
+
+        </div>
+        <!-- /.login-box-body -->
+    </div>
+    <!-- /.login-box -->
+
 </body>
 
 </html>

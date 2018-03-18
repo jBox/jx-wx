@@ -2,12 +2,20 @@ const express = require("express");
 const cv = require("config-vars");
 const router = express.Router();
 
+const verifyTarget = (target) => {
+    if (target) {
+        return /^\w+$/g.test(target);
+    }
+
+    return true;
+};
+
 /* operation */
 // sample: /operation?type=authorize&target=rent
 // type input as wechat user menu external link.
 router.get("/", (req, res, next) => {
     const { type, target, scope = "snsapi_base" } = req.query;
-    if (type === "authorize") {
+    if (type === "authorize" && verifyTarget(target)) {
         const { wx: { appid, openHost }, host } = cv.env;
         const targetUrl = encodeURIComponent(`${host}/${target}`)
         // snsapi_base Url

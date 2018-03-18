@@ -1,7 +1,7 @@
 const request = require("request");
 const cv = require("config-vars");
 const isString = require("lodash/isString");
-const { API_INTERNAL_HOST, tryJson, getContentType } = require("./utils");
+const { API_INTERNAL_HOST, tryJson, getContentType } = require("../utils");
 
 const promiseReq = (options) => {
     return new Promise((resolve, reject) => {
