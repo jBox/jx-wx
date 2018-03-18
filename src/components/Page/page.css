@@ -4,10 +4,10 @@
 
 .page .title {
     padding: 10px 15px;
-    background-color: white;
+    background-color: #605ca8;
+    color: white;
 }
 
 .page .title span {
     font-size: 20px;
-    font-weight: bold;
 }
