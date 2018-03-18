@@ -1,4 +1,5 @@
-import Home from "./Home";
+import App from "./containers/App";
+import NotFound from "./containers/NotFound";
 import Rent, {
     Order,
     CreateOrderVehicle,
@@ -17,7 +18,12 @@ export default [
     {
         path: "/",
         exact: true,
-        component: Home
+        component: App
+    },
+    {
+        path: "/index",
+        exact: true,
+        component: App
     },
     {
         path: "/rent",
@@ -71,5 +77,8 @@ export default [
     {
         path: "/profile",
         component: Profile
+    },
+    {
+        component: NotFound
     }
 ];
