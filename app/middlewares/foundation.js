@@ -1,7 +1,7 @@
 const request = require("request");
 const cv = require("config-vars");
-
-const API_INTERNAL_HOST = `http://localhost:${cv.env.jx.apiPort}`;
+const isString = require("lodash/isString");
+const { API_INTERNAL_HOST, tryJson, getContentType } = require("./utils");
 
 const promiseReq = (options) => {
     return new Promise((resolve, reject) => {
@@ -11,13 +11,13 @@ const promiseReq = (options) => {
                 return resolve(DefaultValue);
             }
 
-            if (body && typeof body === "string") {
-                body = JSON.parse(body);
-            }
-
             const { statusCode } = response;
             switch (statusCode) {
                 case 200:
+                    const contentType = getContentType(response.headers["content-type"]);
+                    if (body && isString(body) && contentType === "application/json") {
+                        body = tryJson(body);
+                    }
                     return resolve(body);
                 default:
                     return resolve(DefaultValue);

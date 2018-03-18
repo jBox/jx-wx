@@ -2,18 +2,7 @@ const request = require("request");
 const md5 = require("md5");
 const cv = require("config-vars");
 const isString = require("lodash/isString");
-const ContentType = require("content-type");
-
-const API_INTERNAL_HOST = `http://localhost:${cv.env.jx.apiPort}`;
-
-const getContentType = (header) => {
-    try {
-        const contentType = ContentType.parse(header);
-        return contentType.type.toLowerCase();
-    } catch (ex) {
-        console.error(ex);
-    }
-};
+const { API_INTERNAL_HOST, tryJson, getContentType } = require("./utils");
 
 const wechat = (req, res, next) => {
     const { code, state } = req.query;
@@ -41,7 +30,7 @@ const wechat = (req, res, next) => {
             if (statusCode === 200) {
                 const contentType = getContentType(response.headers["content-type"]);
                 if (body && isString(body) && contentType === "application/json") {
-                    body = JSON.parse(body);
+                    body = tryJson(body);
                 }
 
                 req.auth = { token: body };
