@@ -4,7 +4,7 @@ const cv = require("config-vars");
 const foundation = require("../middlewares/foundation");
 const customer = require("../middlewares/customer");
 
-const operations = ["index", "rent", "orders", "profile"];
+const operations = ["index", "order", "orders", "profile"];
 
 /* GET page. */
 router.get("/:operation?/:any*?", foundation, customer, (req, res, next) => {

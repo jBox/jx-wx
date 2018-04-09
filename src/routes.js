@@ -26,29 +26,29 @@ export default [
         component: App
     },
     {
-        path: "/rent",
+        path: "/order",
         component: Rent,
         routes: [
             {
-                path: "/rent",
+                path: "/order",
                 exact: true,
                 component: Order
             },
             {
-                path: "/rent/vehicles",
+                path: "/order/vehicles",
                 exact: true,
                 component: CreateOrderVehicle
             },
             {
-                path: "/rent/vehicles/:id",
+                path: "/order/vehicles/:id",
                 component: ModifyOrderVehicle
             },
             {
-                path: "/rent/done",
+                path: "/order/done",
                 component: OrderDone
             },
             {
-                path: "/rent/tracking",
+                path: "/order/tracking",
                 component: OrderTracking
             }
         ]
