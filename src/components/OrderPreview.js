@@ -14,10 +14,10 @@ import {
     CellFooter
 } from "react-weui";
 
-import { MODEL_LABELS, ORDER_STATUS } from "../utils/constants";
+import { ORDER_STATUS } from "../utils/constants";
 
 const VehicleDetail = ({ vehicle }) => {
-    const model = MODEL_LABELS[vehicle.model];
+    const model = vehicle.model.label;
     const values = [`${vehicle.count} 辆`];
     if (vehicle.withDriver) {
         values.push("带驾");
@@ -30,8 +30,8 @@ const VehicleDetail = ({ vehicle }) => {
 };
 
 const PreviewDetails = ({ order }) => {
-    const departureTime = new Date(order.departureTime).format("yyyy-MM-dd hh:mm");
-    const createTime = new Date(order.createTime).format("yyyy-MM-dd hh:mm");
+    const departureTime = order.departureTime.toDateTime();
+    const createTime = order.createTime.toDateTime();
     return (
         <PreviewBody>
             <PreviewItem label="联系人" value={order.name} />

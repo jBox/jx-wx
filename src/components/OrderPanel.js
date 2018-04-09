@@ -23,7 +23,7 @@ const CellMore = ({ onClick }) => (
 );
 
 const VehicleItem = ({ model, count, withDriver }) => {
-    const items = [MODEL_LABELS[model], `${count} 辆`];
+    const items = [model.label, `${count} 辆`];
     if (withDriver) {
         items.push("带驾");
     }

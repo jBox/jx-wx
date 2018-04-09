@@ -21,11 +21,13 @@ export const updateOrder = (order) => ({
 export const resetOrder = () => ({ type: RESET_ORDER });
 
 export const submitOrder = (order) => {
+    const departureTime = new Date(order.departureTime).toISOString();
+    const data = { ...order, departureTime };
 
     return {
         type: API,
-        endpoint: { url: "/api/orders", method: "POST", data: order },
-        before: ({ dispatch }) => dispatch({ type: SUBMIT_ORDER_REQUEST, order }),
+        endpoint: { url: "/api/orders", method: "POST", data },
+        before: ({ dispatch }) => dispatch({ type: SUBMIT_ORDER_REQUEST, order: data }),
         success: ({ data, dispatch }) => {
             dispatch({
                 type: SUBMIT_ORDER_SUCCESS,

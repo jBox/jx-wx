@@ -170,7 +170,7 @@ class Details extends React.Component {
         const { order } = this.props;
         const { dialog, toast, toptips } = this.state;
         const orderStatus = order.status;
-        const cancelable = orderStatus !== "canceling" && orderStatus !== "cancelled";
+        const cancelable = orderStatus !== "cancelling" && orderStatus !== "cancelled";
         const deletable = orderStatus === "cancelled";
         return (
             <Page title="我的订单">
