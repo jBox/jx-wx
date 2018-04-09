@@ -62,7 +62,7 @@ class Order extends React.Component {
         if (updateOrder) {
             updateOrder({ ...this.baseInfo });
         }
-        history.push(`/rent/vehicles/${item.id}`);
+        history.push(`/order/vehicles/${item.id}`);
     }
 
     handleCreateVehicle = () => {
@@ -70,7 +70,7 @@ class Order extends React.Component {
         if (updateOrder) {
             updateOrder({ ...this.baseInfo });
         }
-        history.push("/rent/vehicles");
+        history.push("/order/vehicles");
     }
 
     handleChange = (info) => {
@@ -89,7 +89,7 @@ class Order extends React.Component {
 
     forward = (order) => {
         const { history } = this.props;
-        history.replace(`/rent/done`);
+        history.replace(`/order/done`);
     }
 
     deferCloseToptips = () => {

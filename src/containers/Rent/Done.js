@@ -21,14 +21,14 @@ class Done extends React.Component {
 
     handleStatusClick = () => {
         const { history } = this.props;
-        history.push("/rent/tracking");
+        history.push("/order/tracking");
     }
 
     handleRentMore = () => {
         const { resetOrder, history } = this.props;
         if (resetOrder) {
             resetOrder();
-            history.replace("/rent");
+            history.replace("/order");
         }
     }
 

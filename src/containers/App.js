@@ -34,7 +34,7 @@ export default class App extends React.Component {
                 <div style={{ padding: "20px" }}>
                     <Panel>
                         <PanelBody>
-                            <MediaBox type="appmsg" href="javascript:void(0);" onClick={this.navigateTo("/rent")}>
+                            <MediaBox type="appmsg" href="javascript:void(0);" onClick={this.navigateTo("/order")}>
                                 <MediaBoxHeader>
                                     <img src="/static/img/order.png" width="60px" height="60px" />
                                 </MediaBoxHeader>
