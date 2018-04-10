@@ -4,9 +4,9 @@
   "private": true,
   "main": "server.js",
   "scripts": {
-    "start": "nodemon --watch app --watch static ./bin/www",
-    "startup": "forever start ./bin/www",
-    "shutdown": "forever stop ./bin/www",
+    "start": "nodemon --watch app --watch static server.js",
+    "startup": "forever start server.js",
+    "shutdown": "forever stop server.js",
     "dev": "webpack --config webpack.dev.js",
     "dev:watch": "webpack --watch --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js"

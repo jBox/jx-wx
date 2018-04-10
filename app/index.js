@@ -2,6 +2,7 @@
 
 const express = require("express");
 const Path = require("path");
+const fs = require("fs");
 const favicon = require("serve-favicon");
 const logger = require("morgan");
 const bodyParser = require("body-parser");
@@ -34,6 +35,18 @@ app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/static", express.static(Path.resolve(ROOT, "static")));
+
+app.use("/:verifyFile(\\w+.txt$)", (res, req, next) => {
+  const { verifyFile } = res.params;
+  if (verifyFile) {
+    const filePath = Path.resolve(cv.env.shareFolder, `./${verifyFile}`);
+    if (fs.existsSync(filePath)) {
+      return req.sendFile(filePath);
+    }
+  }
+
+  return next();
+});
 
 // wechat authorize
 app.use("/:target?", wechat);

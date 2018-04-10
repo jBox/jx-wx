@@ -6,6 +6,7 @@ module.exports = cv.setup((getenv) => ({
     version,
     port: getenv("JX_WX_PORT"),
     host: getenv("JX_WX_HOST"),
+    shareFolder: getenv("JX_WX_SHARE_FOLDER"),
     jx: {
         company: getenv("JX_COMPANY_NAME"),
         apiPort: getenv("JX_API_PORT"),
