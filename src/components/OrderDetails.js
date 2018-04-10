@@ -19,6 +19,11 @@ import { MODEL_LABELS } from "../utils/constants";
 
 const clickHander = (obj, onClick) => () => onClick(obj);
 
+const localDepartureTime = (departureTime) => {
+    const time = new Date(departureTime);
+    return time.format("yyyy-MM-ddThh:mm");
+};
+
 const VehicleItem = ({ id, model, count, withDriver, onClick }) => (
     <Cell access onClick={clickHander({ id, model, count, withDriver }, onClick)}>
         <CellBody>
@@ -100,6 +105,8 @@ export default class OrderDetails extends React.Component {
             case "radio":
                 value = target.checked;
                 break;
+            case "departureTime":
+                value = new Date(value).toISOString();
         }
 
         this.form[name] = value;
@@ -112,6 +119,9 @@ export default class OrderDetails extends React.Component {
     render() {
         const { error } = this.state;
         const { data: { vehicles, ...baseInfo } } = this.props;
+
+        const departureTime = localDepartureTime(baseInfo.departureTime);
+
         return [
             (<CellsTitle key="contactinfo">联系信息</CellsTitle>),
             (<Form key="contact">
@@ -122,7 +132,7 @@ export default class OrderDetails extends React.Component {
                     <Input type="tel" placeholder="手机号码" defaultValue={baseInfo.mobile} name="mobile" onChange={this.handleInputChange} />
                 </RequiredCell>
                 <RequiredCell error={error.departureTime} label="出发时间">
-                    <Input type="datetime-local" defaultValue={baseInfo.departureTime} placeholder="出发时间" name="departureTime" onChange={this.handleInputChange} />
+                    <Input type="datetime-local" defaultValue={departureTime} placeholder="出发时间" name="departureTime" onChange={this.handleInputChange} />
                 </RequiredCell>
                 <RequiredCell error={error.departurePlace} label="出发地点">
                     <Input type="text" defaultValue={baseInfo.departurePlace} placeholder="出发地点" name="departurePlace" onChange={this.handleInputChange} />

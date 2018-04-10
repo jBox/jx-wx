@@ -10,8 +10,11 @@ import {
 const getDefaultDepartureTime = () => {
     const now = new Date();
     now.setDate(now.getDate() + 1);
-    const [date] = now.toISOString().split("T");
-    return `${date}T09:00`
+    now.setHours(9);
+    now.setMinutes(0);
+    now.setSeconds(0);
+    now.setMilliseconds(0);
+    return now.toISOString();
 };
 
 const id = (state = "", action) => {
