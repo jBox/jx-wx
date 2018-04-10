@@ -24,7 +24,7 @@ export const submitOrder = (order) => {
     return {
         type: API,
         endpoint: { url: "/api/orders", method: "POST", data: order },
-        before: ({ dispatch }) => dispatch({ type: SUBMIT_ORDER_REQUEST, order: data }),
+        before: ({ dispatch }) => dispatch({ type: SUBMIT_ORDER_REQUEST, order }),
         success: ({ data, dispatch }) => {
             dispatch({
                 type: SUBMIT_ORDER_SUCCESS,
