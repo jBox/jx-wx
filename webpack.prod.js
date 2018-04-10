@@ -14,7 +14,7 @@ module.exports = merge(common, {
         path: Path.resolve(__dirname, "static/dist")
     },
     plugins: [
-        new ExtractTextPlugin("[name].[contenthash].css", {
+        new ExtractTextPlugin("[name].[hash].css", {
             allChunks: true,
         }),
 
