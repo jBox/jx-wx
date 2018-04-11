@@ -7,6 +7,7 @@ const router = express.Router();
 router.get("/", (req, res, next) => {
     const { target = "index" } = req.query;
     const models = {
+        title: req.app.get("company"),
         wecharRedirectLogin: `/operation?type=authorize&target=${target}`
     };
     res.render("login", { models });
@@ -19,6 +20,7 @@ router.post("/", (req, res, next) => {
     const { username, password } = req.body;
     res.render("login", {
         models: {
+            title: req.app.get("company"),
             wecharRedirectLogin: `/operation?type=authorize&target=${target}`,
             error: {
                 status: 403,

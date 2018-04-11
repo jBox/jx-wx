@@ -7,6 +7,7 @@ const favicon = require("serve-favicon");
 const logger = require("morgan");
 const bodyParser = require("body-parser");
 const wechat = require("./middlewares/wechat");
+const txt = require("./middlewares/txt");
 const cv = require("config-vars");
 
 // routes
@@ -36,17 +37,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/static", express.static(Path.resolve(ROOT, "static")));
 
-app.use("/:verifyFile(\\w+.txt$)", (res, req, next) => {
-  const { verifyFile } = res.params;
-  if (verifyFile) {
-    const filePath = Path.resolve(cv.env.shareFolder, `./${verifyFile}`);
-    if (fs.existsSync(filePath)) {
-      return req.sendFile(filePath);
-    }
-  }
-
-  return next();
-});
+// txt
+app.use(txt);
 
 // wechat authorize
 app.use("/:target?", wechat);
@@ -63,7 +55,7 @@ app.use((req, res, next) => {
 // error handler
 app.use((err, req, res, next) => {
   console.error(err);
-  res.render("error");
+  res.render("error", { models: { error: err.message } });
 });
 
 module.exports = app;
