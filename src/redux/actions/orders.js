@@ -68,7 +68,7 @@ const updateOrder = (order, operation) => {
 
 export const cancelOrder = (order) => updateOrder(order, "cancel");
 
-export const deleteOrder = (order) => updateOrder(order, "delete");
+export const deleteOrder = (order) => updateOrder(order, "del");
 
 export const resetOrderStatus = (order) => {
     return {
