@@ -2,7 +2,7 @@ const Path = require("path");
 const webpack = require("webpack");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const config = require("./package").config;
 
@@ -22,19 +22,17 @@ module.exports = {
             },
             {
                 test: /\.css$/i,
-                use: ExtractTextPlugin.extract({
-                    fallback: "style-loader",
-                    use: [
-                        {
-                            loader: "css-loader",
-                            options: {
-                                modules: true,
-                                localIdentName: config.css,
-                            },
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: "css-loader",
+                        options: {
+                            modules: true,
+                            localIdentName: config.css,
                         },
-                        "postcss-loader",
-                    ],
-                }),
+                    },
+                    "postcss-loader"
+                ]
             }
         ],
     },
