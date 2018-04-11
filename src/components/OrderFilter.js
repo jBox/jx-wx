@@ -41,7 +41,7 @@ export default class OrderFilter extends Component {
 
     render() {
         return [
-            (<CellsTitle>帅选条件</CellsTitle>),
+            (<CellsTitle>筛选条件</CellsTitle>),
             (<Form>
                 <FormCell select selectPos="after">
                     <CellHeader>
