@@ -1,53 +1,46 @@
-const Path = require("path");
+"use strict";
+
 const webpack = require("webpack");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const Path = require("path");
 
 const config = require("./package").config;
 
 module.exports = {
-    entry: {
-        app: "./src/index.js"
-    },
+    entry: { main: Path.resolve("src/index.js") },
     module: {
         rules: [
             {
                 test: /\.js$/i,
                 exclude: /node_modules/,
-                loader: "babel-loader",
-                options: {
-                    presets: ["env", "react", "stage-2"],
-                },
+                loader: "babel-loader"
             },
             {
                 test: /\.css$/i,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    {
-                        loader: "css-loader",
-                        options: {
-                            modules: true,
-                            localIdentName: config.css,
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: [
+                        {
+                            loader: "css-loader",
+                            options: {
+                                modules: true,
+                                localIdentName: config.css,
+                            },
                         },
-                    },
-                    "postcss-loader"
-                ]
-            }
+                        "postcss-loader",
+                    ],
+                }),
+            },
         ],
     },
-    optimization: {
-        splitChunks: {
-            cacheGroups: {
-                commons: {
-                    test: /[\\/]node_modules[\\/]/,
-                    name: "vendor",
-                    chunks: "all"
-                }
-            }
-        }
-    },
+
     plugins: [
-        new CleanWebpackPlugin(["static/dist"])
+        // vendor
+        new webpack.optimize.CommonsChunkPlugin({
+            name: "vendor",
+            minChunks: (module) => {
+                return module.context && module.context.indexOf("node_modules") !== -1;
+            }
+        })
     ]
 };
