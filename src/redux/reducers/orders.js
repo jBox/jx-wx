@@ -14,7 +14,7 @@ const cancelOrder = (state, order) => {
         if (item.id === order.id) {
             items.push(order);
         } else {
-            items.push(item);
+            items.push({ ...item });
         }
     }
 
@@ -25,9 +25,9 @@ const deleteOrder = (state, order) => {
     const items = [];
     for (let item of state) {
         if (item.id !== order.id) {
-            items.push(item);
+            items.push({ ...item });
         } else {
-            items.push({ ...order, deleted: true });
+            items.push(order);
         }
     }
 
@@ -42,7 +42,7 @@ const list = (state = [], action) => {
                 return cancelOrder(state, order);
             }
 
-            if (operation === "delete") {
+            if (operation === "del") {
                 return deleteOrder(state, order);
             }
 

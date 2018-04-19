@@ -23,7 +23,7 @@ export const resetOrder = () => ({ type: RESET_ORDER });
 export const submitOrder = (order) => {
     return {
         type: API,
-        endpoint: { url: "/api/orders", method: "POST", data: order },
+        endpoint: { url: "/api/customers/orders", method: "POST", data: order },
         before: ({ dispatch }) => dispatch({ type: SUBMIT_ORDER_REQUEST, order }),
         success: ({ data, dispatch }) => {
             dispatch({

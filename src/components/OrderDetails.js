@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import isEqual from "lodash/isEqual";
 import {
@@ -48,7 +48,7 @@ const OptionalCell = ({ label, children }) => (
     </FormCell>
 );
 
-export default class OrderDetails extends React.Component {
+export default class OrderDetails extends Component {
     static defaultProps = {
         data: {},
         error: {}
@@ -122,48 +122,50 @@ export default class OrderDetails extends React.Component {
 
         const departureTime = localDepartureTime(baseInfo.departureTime);
 
-        return [
-            (<CellsTitle key="contactinfo">联系信息</CellsTitle>),
-            (<Form key="contact">
-                <RequiredCell error={error.name} label="联系人">
-                    <Input type="text" placeholder="姓名" defaultValue={baseInfo.name} name="name" onChange={this.handleInputChange} />
-                </RequiredCell>
-                <RequiredCell error={error.mobile} label="联系电话">
-                    <Input type="tel" placeholder="手机号码" defaultValue={baseInfo.mobile} name="mobile" onChange={this.handleInputChange} />
-                </RequiredCell>
-                <RequiredCell error={error.departureTime} label="出发时间">
-                    <Input type="datetime-local" defaultValue={departureTime} placeholder="出发时间" name="departureTime" onChange={this.handleInputChange} />
-                </RequiredCell>
-                <RequiredCell error={error.departurePlace} label="出发地点">
-                    <Input type="text" defaultValue={baseInfo.departurePlace} placeholder="出发地点" name="departurePlace" onChange={this.handleInputChange} />
-                </RequiredCell>
-                <RequiredCell error={error.destination} label="目的地">
-                    <Input type="text" defaultValue={baseInfo.destination} placeholder="目的地" name="destination" onChange={this.handleInputChange} />
-                </RequiredCell>
-                <RequiredCell error={error.duration} label="租车天数">
-                    <Input type="number" defaultValue={baseInfo.duration} placeholder="租车天数" name="duration" onChange={this.handleInputChange} />
-                </RequiredCell>
-            </Form>),
+        return (
+            <Fragment>
+                <CellsTitle>联系信息</CellsTitle>
+                <Form>
+                    <RequiredCell error={error.name} label="联系人">
+                        <Input type="text" placeholder="姓名" defaultValue={baseInfo.name} name="name" onChange={this.handleInputChange} />
+                    </RequiredCell>
+                    <RequiredCell error={error.mobile} label="联系电话">
+                        <Input type="tel" placeholder="手机号码" defaultValue={baseInfo.mobile} name="mobile" onChange={this.handleInputChange} />
+                    </RequiredCell>
+                    <RequiredCell error={error.departureTime} label="出发时间">
+                        <Input type="datetime-local" defaultValue={departureTime} placeholder="出发时间" name="departureTime" onChange={this.handleInputChange} />
+                    </RequiredCell>
+                    <RequiredCell error={error.departurePlace} label="出发地点">
+                        <Input type="text" defaultValue={baseInfo.departurePlace} placeholder="出发地点" name="departurePlace" onChange={this.handleInputChange} />
+                    </RequiredCell>
+                    <RequiredCell error={error.destination} label="目的地">
+                        <Input type="text" defaultValue={baseInfo.destination} placeholder="目的地" name="destination" onChange={this.handleInputChange} />
+                    </RequiredCell>
+                    <RequiredCell error={error.duration} label="租车天数">
+                        <Input type="number" defaultValue={baseInfo.duration} placeholder="租车天数" name="duration" onChange={this.handleInputChange} />
+                    </RequiredCell>
+                </Form>
 
-            (<CellsTitle key="vehicleinfo">车辆信息</CellsTitle>),
-            (<Cells key="vehicles">
-                {vehicles.map((v) => (<VehicleItem key={v.id} {...v} onClick={this.handleEditVehicle} />))}
-                <Cell access onClick={this.handleAddVehicle}>
-                    <CellBody>
-                        添加车辆
+                <CellsTitle>车辆信息</CellsTitle>
+                <Cells>
+                    {vehicles.map((v) => (<VehicleItem key={v.id} {...v} onClick={this.handleEditVehicle} />))}
+                    <Cell access onClick={this.handleAddVehicle}>
+                        <CellBody>
+                            添加车辆
                         </CellBody>
-                    <CellFooter>
-                        添加车辆
+                        <CellFooter>
+                            添加车辆
                         </CellFooter>
-                </Cell>
-            </Cells>),
+                    </Cell>
+                </Cells>
 
-            (<CellsTitle key="notesinfo">备注</CellsTitle>),
-            (<Form key="notes">
-                <OptionalCell>
-                    <TextArea placeholder="其他要求" rows="2" maxLength="200" defaultValue={baseInfo.notes} name="notes" onChange={this.handleInputChange} />
-                </OptionalCell>
-            </Form>)
-        ];
+                <CellsTitle>备注</CellsTitle>
+                <Form>
+                    <OptionalCell>
+                        <TextArea placeholder="其他要求" rows="2" maxLength="200" defaultValue={baseInfo.notes} name="notes" onChange={this.handleInputChange} />
+                    </OptionalCell>
+                </Form>
+            </Fragment>
+        );
     }
 }

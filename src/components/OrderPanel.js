@@ -55,6 +55,7 @@ export default class OrderPanel extends React.Component {
                 order.traces[order.traces.length - 1].time
             ).format(formatStr);
         }
+        const status = order.service.status || order.status;
         return (
             <Panel>
                 <PanelHeader>
@@ -70,7 +71,7 @@ export default class OrderPanel extends React.Component {
                         </MediaBoxDescription>
                         <MediaBoxInfo>
                             <MediaBoxInfoMeta>{trackTime}</MediaBoxInfoMeta>
-                            <MediaBoxInfoMeta extra>{ORDER_STATUS[order.status]}</MediaBoxInfoMeta>
+                            <MediaBoxInfoMeta extra>{ORDER_STATUS[status]}</MediaBoxInfoMeta>
                         </MediaBoxInfo>
                     </MediaBox>
                 </PanelBody>

@@ -183,6 +183,20 @@ const vehicles = (state = [], action) => {
     }
 };
 
+const service = (state = {}, action) => {
+    switch (action.type) {
+        case UPDATE_ORDER_BASE:
+            return action.service;
+        case SUBMIT_ORDER_REQUEST:
+        case SUBMIT_ORDER_SUCCESS:
+            return action.order.service;
+        case RESET_ORDER:
+            return {};
+        default:
+            return state;
+    }
+};
+
 export default combineReducers({
     id,
     status,
@@ -195,5 +209,6 @@ export default combineReducers({
     notes,
     createTime,
     traces,
-    vehicles
+    vehicles,
+    service
 });

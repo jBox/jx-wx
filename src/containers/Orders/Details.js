@@ -169,9 +169,10 @@ class Details extends React.Component {
     render() {
         const { order } = this.props;
         const { dialog, toast, toptips } = this.state;
-        const orderStatus = order.status;
-        const cancelable = orderStatus !== "cancelling" && orderStatus !== "cancelled";
-        const deletable = orderStatus === "cancelled";
+        const orderService = order.service;
+        const cancelable = orderService.status !== "cancelling" && orderService.status !== "cancelled";
+        const deletable = !order.deleted && orderService.status === "cancelled";
+        const cancelButton = order.status === "submitted" ? "取消订单" : "申请取消订单";
         return (
             <Page title="我的订单">
                 <OrderPreview order={order} onStatusClick={this.handleStatusClick} />
@@ -179,7 +180,7 @@ class Details extends React.Component {
                 <CellsTitle></CellsTitle>
                 <Preview>
                     <PreviewFooter>
-                        {cancelable && (<PreviewButton onClick={this.handleCancel}>取消订单</PreviewButton>)}
+                        {cancelable && (<PreviewButton onClick={this.handleCancel}>{cancelButton}</PreviewButton>)}
                         {deletable && (<PreviewButton onClick={this.handleDelete}>删除订单</PreviewButton>)}
                         <PreviewButton primary onClick={this.handleBack}>确认</PreviewButton>
                     </PreviewFooter>

@@ -20,12 +20,12 @@ class List extends React.Component {
         loadMore: PropTypes.func
     }
 
-    filter = "all"
+    filter = "submitted"
 
     componentDidMount() {
         const { initialLoad } = this.props;
         if (initialLoad) {
-            initialLoad();
+            initialLoad(this.filter);
         }
     }
 
@@ -35,10 +35,12 @@ class List extends React.Component {
     }
 
     handleFilterChange = (filter) => {
-        this.filter = filter;
-        const { initialLoad } = this.props;
-        if (initialLoad) {
-            initialLoad(filter);
+        if (this.filter !== filter) {
+            this.filter = filter;
+            const { initialLoad } = this.props;
+            if (initialLoad) {
+                initialLoad(filter);
+            }
         }
     }
 

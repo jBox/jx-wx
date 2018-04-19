@@ -5,8 +5,12 @@ export const MODEL_LABELS = {
 };
 
 export const ORDER_STATUS = {
-    "submitted": "已提交",
-    "cancelling": "请求取消订单",
-    "cancelled": "已取消",
-    "confirm": "已安排车辆"
+    "submitted": "订单已提交",
+    "cancelling": "申请取消订单",
+    "cancelled": "订单已取消",
+    "confirmed": "订单已确认",
+    "scheduled": "已安排车辆",
+    "departure": "已出车",
+    "reverted": "已安排车辆",
+    "completed": "已完成"
 };

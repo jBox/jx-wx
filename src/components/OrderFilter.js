@@ -1,14 +1,22 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
-import { CellsTitle, Form, FormCell, CellHeader, CellBody, Select, Label } from "react-weui";
+import {
+    CellsTitle,
+    Form,
+    FormCell,
+    CellHeader,
+    CellBody,
+    Select,
+    Label
+} from "react-weui";
 
 export default class OrderFilter extends Component {
     static defaultProps = {
-        value: "all"
+        value: "submitted"
     }
 
     static propTypes = {
-        value: PropTypes.number,
+        value: PropTypes.string,
         onChange: PropTypes.func
     }
 
@@ -40,18 +48,20 @@ export default class OrderFilter extends Component {
     }
 
     render() {
-        return [
-            (<CellsTitle>筛选条件</CellsTitle>),
-            (<Form>
-                <FormCell select selectPos="after">
-                    <CellHeader>
-                        <Label>状态</Label>
-                    </CellHeader>
-                    <CellBody>
-                        <Select defaultValue={this.props.value} data={this.options} onChange={this.handleChange} />
-                    </CellBody>
-                </FormCell>
-            </Form>)
-        ];
+        return (
+            <Fragment>
+                <CellsTitle>筛选条件</CellsTitle>
+                <Form>
+                    <FormCell select selectPos="after">
+                        <CellHeader>
+                            <Label>状态</Label>
+                        </CellHeader>
+                        <CellBody>
+                            <Select defaultValue={this.props.value} data={this.options} onChange={this.handleChange} />
+                        </CellBody>
+                    </FormCell>
+                </Form>
+            </Fragment>
+        );
     }
 }

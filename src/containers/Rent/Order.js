@@ -19,7 +19,7 @@ class Order extends React.Component {
     static propTypes = {
         history: PropTypes.object,
         order: PropTypes.object,
-        status: PropTypes.status,
+        status: PropTypes.string,
         submitOrder: PropTypes.func
     }
 

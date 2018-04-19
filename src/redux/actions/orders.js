@@ -20,7 +20,7 @@ export const initialLoad = (filter) => (dispatch, getState) => {
         }
         return dispatch({
             type: API,
-            endpoint: { url: `/api/orders?filter=${filter}` },
+            endpoint: { url: `/api/customers/orders?filter=${filter}` },
             before: ({ dispatch }) => dispatch({ type: INIT_LOAD_ORDERS_REQUEST }),
             success: ({ data, dispatch }) => {
                 dispatch({
@@ -37,7 +37,7 @@ export const loadMore = (filter) => (dispatch, getState) => {
     if (next) {
         return dispatch({
             type: API,
-            endpoint: { url: `/api/orders?next=${next}&filter=${filter}` },
+            endpoint: { url: `/api/customers/orders?next=${next}&filter=${filter}` },
             before: ({ dispatch }) => dispatch({ type: QUERY_ORDERS_REQUEST }),
             success: ({ data, dispatch }) => {
                 dispatch({
@@ -53,7 +53,7 @@ const updateOrder = (order, operation) => {
     const data = { version: order.version, operation };
     return {
         type: API,
-        endpoint: { url: `/api/orders/${order.id}`, method: "PUT", data },
+        endpoint: { url: `/api/customers/orders/${order.id}`, method: "PUT", data },
         before: ({ dispatch }) => dispatch({ type: UPDATE_ORDER_REQUEST, order, operation }),
         error: ({ error, dispatch }) => dispatch({ type: UPDATE_ORDER_FAILURE, order, operation, error }),
         success: ({ data, dispatch }) => {

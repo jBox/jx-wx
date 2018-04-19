@@ -39,7 +39,7 @@ const PreviewDetails = ({ order }) => {
             <PreviewItem label="出发时间" value={departureTime} />
             <PreviewItem label="出发地点" value={order.departurePlace} />
             <PreviewItem label="目的地" value={order.destination} />
-            <PreviewItem label="租车天数" value={order.duration} />
+            <PreviewItem label="租车天数" value={`${order.duration}`} />
             {order.vehicles.map((v, index) => (<VehicleDetail key={index} vehicle={v} />))}
             {order.notes && (<PreviewItem label="备注" value={order.notes} />)}
             <PreviewItem label="下单时间" value={createTime} />
@@ -62,6 +62,8 @@ export default class OrderPreview extends React.Component {
 
     render() {
         const { order } = this.props;
+        const status = order.service.status || order.status;
+
         return [
             (<CellsTitle key="orderinfolabel">订单详情</CellsTitle>),
             (<Preview key="orderinfo">
@@ -78,7 +80,7 @@ export default class OrderPreview extends React.Component {
                         状态
                     </CellBody>
                     <CellFooter>
-                        {ORDER_STATUS[order.status]}
+                        {ORDER_STATUS[status]}
                     </CellFooter>
                 </Cell>
             </Cells>)
