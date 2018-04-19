@@ -21,6 +21,7 @@ export default class OrderStatus extends React.Component {
 
     render() {
         const { status, traces } = this.props;
+        const items = [...traces].reverse();
         return [
             (<CellsTitle key="statuslabel">订单状态</CellsTitle>),
             (<Preview key="status">
@@ -28,7 +29,7 @@ export default class OrderStatus extends React.Component {
                     <PreviewItem label="状态" value={ORDER_STATUS[status]} />
                 </PreviewHeader>
                 <PreviewBody>
-                    {traces.map((trace, index) =>
+                    {items.map((trace, index) =>
                         (<Trace key={index} {...trace} />)
                     )}
                 </PreviewBody>
