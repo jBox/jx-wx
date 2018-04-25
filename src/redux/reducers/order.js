@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import isUndefined from "lodash/isUndefined";
 import {
     UPDATE_ORDER_BASE,
     UPDATE_VEHICLES,
@@ -158,21 +159,25 @@ const vehicles = (state = [], action) => {
     switch (action.type) {
         case UPDATE_VEHICLES:
             const { vehicle } = action;
-            const index = state.findIndex(x => x.id === vehicle.id);
-            if (index > -1) {
-                // modify
-                const newState = [...state];
-                if (vehicle.delete) {
-                    newState.splice(index, 1);
-                } else {
-                    newState[index] = vehicle;
-                }
-                return newState;
-            } else {
+            if (isUndefined(vehicle.id)) {
                 // add
                 vehicle.id = Number("" + Date.now() + state.length);
                 return [...state, vehicle];
+            } else {
+                const index = state.findIndex(x => x.id === vehicle.id);
+                if (index > -1) {
+                    // modify
+                    const newState = [...state];
+                    if (vehicle.delete) {
+                        newState.splice(index, 1);
+                    } else {
+                        newState[index] = vehicle;
+                    }
+                    return newState;
+                }
             }
+
+            return state;
         case SUBMIT_ORDER_REQUEST:
         case SUBMIT_ORDER_SUCCESS:
             return [...action.order.vehicles];

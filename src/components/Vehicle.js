@@ -101,7 +101,7 @@ export default class Vehicle extends React.Component {
                         <Label>数量</Label>
                     </CellHeader>
                     <CellBody>
-                        <Input type="number" placeholder="租车数量" name="count" defaultValue={defaultValue.count} onChange={this.handleInputChange} />
+                        <Input type="number" placeholder="租车数量" name="count" defaultValue={defaultValue.count.toString()} onChange={this.handleInputChange} />
                     </CellBody>
                     {this.state.error && (<CellFooter>
                         <Icon value="warn" />
@@ -119,7 +119,7 @@ export default class Vehicle extends React.Component {
             (<Form key="notes">
                 <FormCell>
                     <CellBody>
-                        <TextArea placeholder="其他要求" rows="2" maxLength="100" name="notes" defaultValue={defaultValue.notes} onChange={this.handleInputChange} />
+                        <TextArea placeholder="其他要求" rows="2" maxLength={100} name="notes" defaultValue={defaultValue.notes} onChange={this.handleInputChange} />
                     </CellBody>
                 </FormCell>
             </Form>)

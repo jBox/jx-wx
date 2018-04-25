@@ -142,7 +142,7 @@ export default class OrderDetails extends Component {
                         <Input type="text" defaultValue={baseInfo.destination} placeholder="目的地" name="destination" onChange={this.handleInputChange} />
                     </RequiredCell>
                     <RequiredCell error={error.duration} label="租车天数">
-                        <Input type="number" defaultValue={baseInfo.duration} placeholder="租车天数" name="duration" onChange={this.handleInputChange} />
+                        <Input type="number" defaultValue={baseInfo.duration.toString()} placeholder="租车天数" name="duration" onChange={this.handleInputChange} />
                     </RequiredCell>
                 </Form>
 
@@ -162,7 +162,7 @@ export default class OrderDetails extends Component {
                 <CellsTitle>备注</CellsTitle>
                 <Form>
                     <OptionalCell>
-                        <TextArea placeholder="其他要求" rows="2" maxLength="200" defaultValue={baseInfo.notes} name="notes" onChange={this.handleInputChange} />
+                        <TextArea placeholder="其他要求" rows="2" maxLength={200} defaultValue={baseInfo.notes} name="notes" onChange={this.handleInputChange} />
                     </OptionalCell>
                 </Form>
             </Fragment>
