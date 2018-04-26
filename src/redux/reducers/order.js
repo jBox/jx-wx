@@ -179,8 +179,14 @@ const vehicles = (state = [], action) => {
 
             return state;
         case SUBMIT_ORDER_REQUEST:
-        case SUBMIT_ORDER_SUCCESS:
             return [...action.order.vehicles];
+        case SUBMIT_ORDER_SUCCESS: {
+            const tick = "" + Date.now();
+            return action.order.vehicles.map((item, index) => ({
+                id: Number(tick + index),
+                ...item
+            }));
+        }
         case RESET_ORDER:
             return [];
         default:

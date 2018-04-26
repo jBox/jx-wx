@@ -16,6 +16,8 @@ import Page from "../../components/Page";
 import OrderPreview from "../../components/OrderPreview";
 import { cancelOrder, deleteOrder, resetOrderStatus } from "../../redux/actions/orders";
 
+const CancelableStatus = ["summitted", "confirmed", "scheduled"];
+
 class Details extends React.Component {
 
     static propTypes = {
@@ -40,7 +42,7 @@ class Details extends React.Component {
             } else if (status.state === "request") {
                 this.showToast("loading", "数据加载中");
             } else if (status.state === "success") {
-                if (status.operation === "delete") {
+                if (status.operation === "del") {
                     this.showToast("success", "已删除订单", this.handleBack);
                 } else {
                     this.showToast("success", "已取消订单");
@@ -170,8 +172,10 @@ class Details extends React.Component {
         const { order } = this.props;
         const { dialog, toast, toptips } = this.state;
         const orderService = order.service;
-        const cancelable = orderService.status !== "cancelling" && orderService.status !== "cancelled";
-        const deletable = !order.deleted && orderService.status === "cancelled";
+        const cancelable = CancelableStatus.includes(order.status) &&
+            orderService.status !== "cancelling" &&
+            orderService.status !== "cancelled";
+        const deletable = !order.deleted && (orderService.status === "cancelled" || order.status === "completed");
         const cancelButton = order.status === "submitted" ? "取消订单" : "申请取消订单";
         return (
             <Page title="我的订单">
