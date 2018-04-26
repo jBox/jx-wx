@@ -1,6 +1,14 @@
 import { createSelector } from "reselect";
 
-export const modifySelector = createSelector(
+export const createVehicleSelector = createSelector(
+    (state) => state.settings,
+    (settings) => {
+        return { models: settings.models };
+    }
+);
+
+export const modifyVehicleSelector = createSelector(
+    (state) => state.settings,
     (state) => state.rent.order.vehicles,
     (state, props) => {
         const { vehicles } = state.rent.order;
@@ -12,9 +20,9 @@ export const modifySelector = createSelector(
 
         return -1;
     },
-    (vehicles, id) => {
+    (settings, vehicles, id) => {
         const vehicle = vehicles.find(x => x.id === id);
-        return { vehicle };
+        return { models: settings.models, vehicle };
     }
 );
 

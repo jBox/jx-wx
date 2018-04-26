@@ -1,9 +1,3 @@
-
-export const MODEL_LABELS = {
-    "mvp": "商务车",
-    "sedan": "轿车"
-};
-
 export const ORDER_STATUS = {
     "submitted": "订单已提交",
     "cancelling": "申请取消订单",

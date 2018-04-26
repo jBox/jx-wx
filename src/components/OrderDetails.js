@@ -15,7 +15,6 @@ import {
     Label,
     TextArea
 } from "react-weui";
-import { MODEL_LABELS } from "../utils/constants";
 
 const clickHander = (obj, onClick) => () => onClick(obj);
 
@@ -27,7 +26,7 @@ const localDepartureTime = (departureTime) => {
 const VehicleItem = ({ id, model, count, withDriver, onClick }) => (
     <Cell access onClick={clickHander({ id, model, count, withDriver }, onClick)}>
         <CellBody>
-            {MODEL_LABELS[model]} / {count} 辆{withDriver && " / 带驾"}
+            {model.label} / {count} 辆{withDriver && " / 带驾"}
         </CellBody>
         <CellFooter>详细信息</CellFooter>
     </Cell >
@@ -121,19 +120,28 @@ export default class OrderDetails extends Component {
         const { data: { vehicles, ...baseInfo } } = this.props;
 
         const departureTime = localDepartureTime(baseInfo.departureTime);
+        const now = new Date();
+        now.setMinutes(0);
+        now.setHours(now.getHours() + 3);
+        const departureMinTime = now.format("yyyy-MM-ddThh:mm");
+        now.setDate(now.getDate() + 90);
+        const departureMaxTime = now.format("yyyy-MM-ddThh:mm");
 
         return (
             <Fragment>
                 <CellsTitle>联系信息</CellsTitle>
                 <Form>
-                    <RequiredCell error={error.name} label="联系人">
-                        <Input type="text" placeholder="姓名" defaultValue={baseInfo.name} name="name" onChange={this.handleInputChange} />
+                    <RequiredCell error={error.contact} label="联系人">
+                        <Input type="text" placeholder="姓名" defaultValue={baseInfo.contact} name="contact" onChange={this.handleInputChange} />
                     </RequiredCell>
                     <RequiredCell error={error.mobile} label="联系电话">
                         <Input type="tel" placeholder="手机号码" defaultValue={baseInfo.mobile} name="mobile" onChange={this.handleInputChange} />
                     </RequiredCell>
                     <RequiredCell error={error.departureTime} label="出发时间">
-                        <Input type="datetime-local" defaultValue={departureTime} placeholder="出发时间" name="departureTime" onChange={this.handleInputChange} />
+                        <Input type="datetime-local" min={departureMinTime} max={departureMaxTime}
+                            defaultValue={departureTime} placeholder="出发时间"
+                            name="departureTime"
+                            onChange={this.handleInputChange} />
                     </RequiredCell>
                     <RequiredCell error={error.departurePlace} label="出发地点">
                         <Input type="text" defaultValue={baseInfo.departurePlace} placeholder="出发地点" name="departurePlace" onChange={this.handleInputChange} />

@@ -6,12 +6,13 @@ import isEqual from "lodash/isEqual";
 import Page from "../../components/Page";
 import Vehicle from "../../components/Vehicle";
 import { updateVehicle } from "../../redux/actions/rent";
-import { modifySelector } from "../../redux/selectors/rent";
+import { modifyVehicleSelector } from "../../redux/selectors/rent";
 
 class Modify extends React.Component {
     static propTypes = {
         history: PropTypes.object.isRequired,
         vehicle: PropTypes.object.isRequired,
+        models: PropTypes.object,
         modify: PropTypes.func
     }
 
@@ -83,9 +84,15 @@ class Modify extends React.Component {
 
     render() {
         const { error, changed } = this.state;
+        const { models } = this.props;
         return (
             <Page title="约车下单 - 修改车辆">
-                <Vehicle onChange={this.handleVehicleChange} onError={this.handleVehicleError} defaultValue={this.vehicle} />
+                <Vehicle
+                    models={models}
+                    onChange={this.handleVehicleChange}
+                    onError={this.handleVehicleError}
+                    defaultValue={this.vehicle}
+                />
 
                 <ButtonArea direction="horizontal">
                     <Button type="default" onClick={this.handleCancelClick}>返回</Button>
@@ -97,4 +104,4 @@ class Modify extends React.Component {
     }
 }
 
-export default connect(modifySelector, { modify: updateVehicle })(Modify);
+export default connect(modifyVehicleSelector, { modify: updateVehicle })(Modify);

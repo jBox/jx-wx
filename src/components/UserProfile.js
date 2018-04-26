@@ -14,8 +14,6 @@ import {
     Input,
     Label
 } from "react-weui";
-import { MODEL_LABELS } from "../utils/constants";
-
 
 const RequiredCell = ({ error, label, children }) => (
     <FormCell warn={error}>

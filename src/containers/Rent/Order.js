@@ -107,11 +107,11 @@ class Order extends React.Component {
         const { order } = this.props;
         const checkMobile = (str) => (/^1\d{10}$/g.test(str));
         const data = this.baseInfo;
-        const keys = ["name", "mobile", "departureTime", "departurePlace", "destination", "duration"];
+        const keys = ["contact", "mobile", "departureTime", "departurePlace", "destination", "duration"];
         for (let key of keys) {
             const value = data[key];
-            if (key === "name" && !value) {
-                return this.showError(key, "请输入姓名");
+            if (key === "contact" && !value) {
+                return this.showError(key, "请输入联系人");
             }
             if (key === "mobile" && !checkMobile(value)) {
                 return this.showError(key, "请填写正确的手机号码");

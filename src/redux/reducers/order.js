@@ -54,13 +54,13 @@ const traces = (state = [], action) => {
     }
 };
 
-const name = (state = "", action) => {
+const contact = (state = "", action) => {
     switch (action.type) {
         case UPDATE_ORDER_BASE:
-            return action.name;
+            return action.contact;
         case SUBMIT_ORDER_REQUEST:
         case SUBMIT_ORDER_SUCCESS:
-            return action.order.name;
+            return action.order.contact;
         default:
             return state;
     }
@@ -211,7 +211,7 @@ const service = (state = {}, action) => {
 export default combineReducers({
     id,
     status,
-    name,
+    contact,
     mobile,
     departureTime,
     departurePlace,

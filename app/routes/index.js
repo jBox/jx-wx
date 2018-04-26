@@ -17,7 +17,7 @@ router.get("/:operation?/:any*?", foundation, customer, (req, res, next) => {
       };
       if (req.customer) {
         state.rent = {
-          order: { name: req.customer.name, mobile: req.customer.mobile, departurePlace: req.customer.address }
+          order: { contact: req.customer.name, mobile: req.customer.mobile, departurePlace: req.customer.address }
         }
       }
       const models = {

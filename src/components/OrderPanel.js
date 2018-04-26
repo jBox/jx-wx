@@ -13,7 +13,7 @@ import {
     CellBody,
     CellFooter
 } from "react-weui";
-import { MODEL_LABELS, ORDER_STATUS } from "../utils/constants";
+import { ORDER_STATUS } from "../utils/constants";
 
 const CellMore = ({ onClick }) => (
     <Cell access link onClick={onClick}>
@@ -64,7 +64,7 @@ export default class OrderPanel extends React.Component {
                 <PanelBody>
                     <MediaBox type="text">
                         <MediaBoxDescription>
-                            <p>{order.name} | {order.mobile}</p>
+                            <p>{order.contact} | {order.mobile}</p>
                             <p>出发时间：{departureTime}</p>
                             <p>出发地点：{order.departurePlace}</p>
                             {order.vehicles.map((vehicle, i) => (<VehicleItem key={i} {...vehicle} />))}

@@ -34,7 +34,7 @@ const PreviewDetails = ({ order }) => {
     const createTime = order.createTime.toDateTime();
     return (
         <PreviewBody>
-            <PreviewItem label="联系人" value={order.name} />
+            <PreviewItem label="联系人" value={order.contact} />
             <PreviewItem label="联系电话" value={order.mobile} />
             <PreviewItem label="出发时间" value={departureTime} />
             <PreviewItem label="出发地点" value={order.departurePlace} />

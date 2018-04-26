@@ -5,10 +5,12 @@ import { ButtonArea, Button } from "react-weui";
 import Page from "../../components/Page";
 import Vehicle from "../../components/Vehicle";
 import { updateVehicle } from "../../redux/actions/rent";
+import { createVehicleSelector } from "../../redux/selectors/rent";
 
 class Create extends React.Component {
     static propTypes = {
         history: PropTypes.object.isRequired,
+        models: PropTypes.object,
         add: PropTypes.func
     }
 
@@ -16,7 +18,7 @@ class Create extends React.Component {
         super(props);
 
         this.vehicle = {
-            model: "mvp",
+            model: { ...props.models.mvp },
             count: 1,
             withDriver: true
         };
@@ -61,7 +63,12 @@ class Create extends React.Component {
     render() {
         return (
             <Page title="约车下单 - 添加车辆">
-                <Vehicle onChange={this.handleVehicleChange} onError={this.handleVehicleError} defaultValue={this.vehicle} />
+                <Vehicle
+                    models={this.props.models}
+                    onChange={this.handleVehicleChange}
+                    onError={this.handleVehicleError}
+                    defaultValue={this.vehicle}
+                />
 
                 <ButtonArea direction="horizontal">
                     <Button type="default" onClick={this.handleCancelClick}>返回</Button>
@@ -72,4 +79,4 @@ class Create extends React.Component {
     }
 }
 
-export default connect(null, { add: updateVehicle })(Create);
+export default connect(createVehicleSelector, { add: updateVehicle })(Create);

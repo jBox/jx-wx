@@ -24,7 +24,7 @@ export default class Vehicle extends React.Component {
     }
 
     static propTypes = {
-        models: PropTypes.array,
+        models: PropTypes.object,
         defaultValue: PropTypes.object,
         onChange: PropTypes.func,
         onError: PropTypes.func
@@ -48,7 +48,7 @@ export default class Vehicle extends React.Component {
     }
 
     handleInputChange = (e) => {
-        const { onChange, onError } = this.props;
+        const { onChange, onError, models } = this.props;
         const target = e.target;
         const { name } = target;
         let value = target.value;
@@ -72,6 +72,10 @@ export default class Vehicle extends React.Component {
             }
         }
 
+        if (name === "model") {
+            value = { ...models[value] };
+        }
+
         this.form[name] = value;
         if (onChange) {
             onChange({ ...this.form });
@@ -81,6 +85,7 @@ export default class Vehicle extends React.Component {
     }
 
     render() {
+        const { models } = this.props;
         const defaultValue = this.defaultValue;
         return [
             (<CellsTitle key="formlabel">车辆信息</CellsTitle>),
@@ -90,9 +95,10 @@ export default class Vehicle extends React.Component {
                         <Label>车型</Label>
                     </CellHeader>
                     <CellBody>
-                        <Select defaultValue={defaultValue.model} name="model" onChange={this.handleInputChange}>
-                            <option value="mvp">商务车</option>
-                            <option value="sedan">轿车</option>
+                        <Select defaultValue={defaultValue.model.id} name="model" onChange={this.handleInputChange}>
+                            {Object.keys(models).map((model) => (
+                                <option key={model} value={model}>{models[model].label}</option>
+                            ))}
                         </Select>
                     </CellBody>
                 </FormCell>
