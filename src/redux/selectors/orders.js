@@ -29,6 +29,6 @@ export default createSelector(
     (state) => state.orders,
     (orders) => {
         const list = orders.list.filter(x => !x.deleted);
-        return { orders: list, hasMore: !!orders.next };
+        return { orders: list, hasMore: !!orders.next, filter: orders.filter };
     }
 );

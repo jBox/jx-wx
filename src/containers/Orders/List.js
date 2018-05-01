@@ -15,17 +15,16 @@ class List extends React.Component {
     static propTypes = {
         history: PropTypes.object,
         orders: PropTypes.array,
+        filter: PropTypes.string,
         hasMore: PropTypes.bool,
         initialLoad: PropTypes.func,
         loadMore: PropTypes.func
     }
 
-    filter = "submitted"
-
     componentDidMount() {
-        const { initialLoad } = this.props;
+        const { initialLoad, filter } = this.props;
         if (initialLoad) {
-            initialLoad(this.filter);
+            initialLoad(filter);
         }
     }
 
@@ -35,8 +34,7 @@ class List extends React.Component {
     }
 
     handleFilterChange = (filter) => {
-        if (this.filter !== filter) {
-            this.filter = filter;
+        if (this.props.filter !== filter) {
             const { initialLoad } = this.props;
             if (initialLoad) {
                 initialLoad(filter);
@@ -52,13 +50,13 @@ class List extends React.Component {
     }
 
     render() {
-        const { orders, hasMore } = this.props;
+        const { orders, filter, hasMore } = this.props;
         const loader = (<LoadMore loading key={0}>正在加载</LoadMore>);
         const noData = orders.length === 0;
         const noMore = !hasMore && orders.length !== 0;
         return (
             <Page title="我的订单">
-                <OrderFilter onChange={this.handleFilterChange} />
+                <OrderFilter value={filter} onChange={this.handleFilterChange} />
 
                 <CellsTitle>订单列表</CellsTitle>
                 <InfiniteScroll

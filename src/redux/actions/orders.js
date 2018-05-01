@@ -21,7 +21,7 @@ export const initialLoad = (filter) => (dispatch, getState) => {
         return dispatch({
             type: API,
             endpoint: { url: `/api/customers/orders?filter=${filter}` },
-            before: ({ dispatch }) => dispatch({ type: INIT_LOAD_ORDERS_REQUEST }),
+            before: ({ dispatch }) => dispatch({ type: INIT_LOAD_ORDERS_REQUEST, filter }),
             success: ({ data, dispatch }) => {
                 dispatch({
                     ...data,

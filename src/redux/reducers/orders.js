@@ -5,7 +5,8 @@ import {
     UPDATE_ORDER_REQUEST,
     UPDATE_ORDER_SUCCESS,
     UPDATE_ORDER_FAILURE,
-    RESET_ORDER_STATUS
+    RESET_ORDER_STATUS,
+    INIT_LOAD_ORDERS_REQUEST
 } from "../actions/ActionTypes";
 
 const cancelOrder = (state, order) => {
@@ -66,6 +67,15 @@ const next = (state = "", action) => {
     }
 };
 
+const filter = (state = "submitted", action) => {
+    switch (action.type) {
+        case INIT_LOAD_ORDERS_REQUEST:
+            return action.filter;
+        default:
+            return state;
+    }
+};
+
 const status = (state = {}, action) => {
     const { order, operation } = action;
     switch (action.type) {
@@ -85,5 +95,6 @@ const status = (state = {}, action) => {
 export default combineReducers({
     list,
     next,
-    status
+    status,
+    filter
 });
