@@ -9,13 +9,11 @@ import {
     CellsTitle
 } from "react-weui";
 
-import { ORDER_STATUS } from "../utils/constants";
-
 const Trace = ({ time, state }) => (<PreviewItem label={new Date(time).format("yyyy-MM-dd hh:mm")} value={state} />);
 
 export default class OrderStatus extends React.Component {
     static propTypes = {
-        status: PropTypes.string,
+        status: PropTypes.object,
         traces: PropTypes.array
     }
 
@@ -26,7 +24,7 @@ export default class OrderStatus extends React.Component {
             (<CellsTitle key="statuslabel">订单状态</CellsTitle>),
             (<Preview key="status">
                 <PreviewHeader>
-                    <PreviewItem label="状态" value={ORDER_STATUS[status]} />
+                    <PreviewItem label="状态" value={status.label} />
                 </PreviewHeader>
                 <PreviewBody>
                     {items.map((trace, index) =>

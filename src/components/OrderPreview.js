@@ -14,8 +14,6 @@ import {
     CellFooter
 } from "react-weui";
 
-import { ORDER_STATUS } from "../utils/constants";
-
 const VehicleDetail = ({ vehicle }) => {
     const model = vehicle.model.label;
     const values = [`${vehicle.count} 辆`];
@@ -62,7 +60,6 @@ export default class OrderPreview extends React.Component {
 
     render() {
         const { order } = this.props;
-        const status = order.service.status || order.status;
 
         return [
             (<CellsTitle key="orderinfolabel">订单详情</CellsTitle>),
@@ -80,7 +77,7 @@ export default class OrderPreview extends React.Component {
                         状态
                     </CellBody>
                     <CellFooter>
-                        {ORDER_STATUS[status]}
+                        {order.status.label}
                     </CellFooter>
                 </Cell>
             </Cells>)

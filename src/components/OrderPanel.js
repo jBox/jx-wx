@@ -13,7 +13,6 @@ import {
     CellBody,
     CellFooter
 } from "react-weui";
-import { ORDER_STATUS } from "../utils/constants";
 
 const CellMore = ({ onClick }) => (
     <Cell access link onClick={onClick}>
@@ -55,7 +54,7 @@ export default class OrderPanel extends React.Component {
                 order.traces[order.traces.length - 1].time
             ).format(formatStr);
         }
-        const status = order.service.status || order.status;
+        const status = order.status;
         return (
             <Panel>
                 <PanelHeader>
@@ -71,7 +70,7 @@ export default class OrderPanel extends React.Component {
                         </MediaBoxDescription>
                         <MediaBoxInfo>
                             <MediaBoxInfoMeta>{trackTime}</MediaBoxInfoMeta>
-                            <MediaBoxInfoMeta extra>{ORDER_STATUS[status]}</MediaBoxInfoMeta>
+                            <MediaBoxInfoMeta extra>{status.label}</MediaBoxInfoMeta>
                         </MediaBoxInfo>
                     </MediaBox>
                 </PanelBody>

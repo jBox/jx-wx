@@ -11,7 +11,7 @@ import { modifyVehicleSelector } from "../../redux/selectors/rent";
 class Modify extends React.Component {
     static propTypes = {
         history: PropTypes.object.isRequired,
-        vehicle: PropTypes.object.isRequired,
+        vehicle: PropTypes.object,
         models: PropTypes.object,
         modify: PropTypes.func
     }
