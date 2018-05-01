@@ -27,7 +27,7 @@ export default class OrderFilter extends Component {
         },
         {
             value: "submitted",
-            label: "已提交"
+            label: "待处理"
         },
         {
             value: "completed",
