@@ -14,10 +14,10 @@ import {
     CellFooter
 } from "react-weui";
 
-const CellMore = ({ onClick }) => (
+const NavCell = ({ status, onClick }) => (
     <Cell access link onClick={onClick}>
-        <CellBody>查看详情</CellBody>
-        <CellFooter />
+        <CellBody>{status}</CellBody>
+        <CellFooter>查看详情</CellFooter>
     </Cell>
 );
 
@@ -28,6 +28,23 @@ const VehicleItem = ({ model, count, withDriver }) => {
     }
 
     return (<p>{items.join(" / ")}</p>);
+};
+
+const ScheduleItem = ({ licenseNumber, model, driver, mobile, status }) => {
+    const StatusText = { start: "已发车", end: "已收车" };
+    const items = [licenseNumber, model, driver, mobile];
+    return (
+        <p>
+            {items.join(" | ")}
+            {status && (<label style={{ float: "right" }}>{StatusText[status]}</label>)}
+        </p>
+    );
+};
+
+const TitleStyles = {
+    fontWeight: "bold",
+    fontSize: "14px",
+    color: "#605ca8"
 };
 
 export default class OrderPanel extends React.Component {
@@ -48,34 +65,29 @@ export default class OrderPanel extends React.Component {
         const { order } = this.props;
         const formatStr = "yyyy-MM-dd hh:mm";
         const departureTime = new Date(order.departureTime).format(formatStr);
-        let trackTime = new Date(order.createTime).format(formatStr);
-        if (order.traces && order.traces.length > 0) {
-            trackTime = new Date(
-                order.traces[order.traces.length - 1].time
-            ).format(formatStr);
-        }
         const status = order.status;
         return (
             <Panel>
                 <PanelHeader>
-                    订单号：{order.id}
+                    <span style={TitleStyles}>订单号：{order.id}</span>
                 </PanelHeader>
                 <PanelBody>
                     <MediaBox type="text">
                         <MediaBoxDescription>
-                            <p>{order.contact} | {order.mobile}</p>
                             <p>出发时间：{departureTime}</p>
-                            <p>出发地点：{order.departurePlace}</p>
                             {order.vehicles.map((vehicle, i) => (<VehicleItem key={i} {...vehicle} />))}
                         </MediaBoxDescription>
-                        <MediaBoxInfo>
-                            <MediaBoxInfoMeta>{trackTime}</MediaBoxInfoMeta>
-                            <MediaBoxInfoMeta extra>{status.label}</MediaBoxInfoMeta>
-                        </MediaBoxInfo>
                     </MediaBox>
+                    {order.schedules.length > 0 && (
+                        <MediaBox type="text">
+                            <MediaBoxDescription>
+                                {order.schedules.map((s, i) => (<ScheduleItem key={i} {...s} />))}
+                            </MediaBoxDescription>
+                        </MediaBox>
+                    )}
                 </PanelBody>
                 <PanelFooter href="javascript:void(0);">
-                    <CellMore onClick={this.handleMoreClick} />
+                    <NavCell status={status.label} onClick={this.handleMoreClick} />
                 </PanelFooter>
             </Panel>
         );
