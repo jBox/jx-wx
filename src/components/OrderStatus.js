@@ -9,7 +9,7 @@ import {
     CellsTitle
 } from "react-weui";
 
-const Trace = ({ time, state }) => (<PreviewItem label={new Date(time).format("yyyy-MM-dd hh:mm")} value={state} />);
+const Trace = ({ time, state }) => (<PreviewItem label={new Date(time).format("MM-dd hh:mm")} value={state} />);
 
 export default class OrderStatus extends React.Component {
     static propTypes = {

@@ -46,7 +46,7 @@ const PreviewDetails = ({ order }) => {
 };
 
 const OrderSchedules = ({ schedules }) => {
-    if (schedules.length === 0) {
+    if (!schedules || schedules.length === 0) {
         return null;
     }
 
